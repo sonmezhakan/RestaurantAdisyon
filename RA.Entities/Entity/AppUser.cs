@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RA.Entities.Entity
 {
-    public class AppUser:EntityAbstract
+    public class AppUser : EntityAbstract
     {
         public int EmployeeID { get; set; }
         public string UserName { get; set; }

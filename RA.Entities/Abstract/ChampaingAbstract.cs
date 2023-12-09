@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RA.Entities.Abstract
 {
-    public abstract class ChampaingAbstract:EntityAbstract
+    public abstract class ChampaingAbstract : EntityAbstract
     {
         public Int16 Champaing { get; set; }
     }

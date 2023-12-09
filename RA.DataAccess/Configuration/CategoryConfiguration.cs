@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using RA.Entities.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RA.DataAccess.Configuration
 {
@@ -17,7 +12,7 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.Desription).HasMaxLength(250);
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.UpdatedDate).IsRequired();
-            builder.Property(x=>x.CreatedUserId).IsRequired();
+            builder.Property(x => x.CreatedUserId).IsRequired();
             builder.Property(x => x.Champaing).HasColumnType("smallint");
 
             builder.HasOne(x => x.CreatedUser).WithMany(x => x.Categories).HasForeignKey(x => x.CreatedUserId);

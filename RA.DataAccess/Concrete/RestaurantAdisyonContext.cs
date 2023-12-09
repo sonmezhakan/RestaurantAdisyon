@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RA.DataAccess.Configuration;
-using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RA.Entities.Entity;
+using RA.DataAccess.Configuration;
 
 namespace RA.DataAccess.Concrete
 {
-    public class RestaurantAdisyonContext:DbContext
+    public class RestaurantAdisyonContext : DbContext
     {
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -33,12 +33,12 @@ namespace RA.DataAccess.Concrete
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           if(!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("server=DESKTOP-S8RDFAU;database=RestaurantAdisyonDB;Trusted_Connection=True;TrustServerCertificate=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
-        
+
     }
 }
