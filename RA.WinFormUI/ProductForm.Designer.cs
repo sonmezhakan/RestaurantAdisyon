@@ -300,14 +300,14 @@
             panelLeft.Size = new Size(370, 681);
             panelLeft.TabIndex = 2;
             // 
-            // ProductMain
+            // ProductForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 681);
             Controls.Add(panelMid);
             Controls.Add(panelLeft);
-            Name = "ProductMain";
+            Name = "ProductForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ProductMain";
             Load += ProductMain_Load;

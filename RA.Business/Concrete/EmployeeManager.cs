@@ -8,6 +8,15 @@ namespace RA.Business.Concrete
     {
         BaseRepository<Employee> repository = new BaseRepository<Employee>();
 
+        public List<Employee> GetByAllComboBox()
+        {
+            return repository.GetAll().Select(x => new Employee
+            {
+                ID = x.ID,
+                FirstName = x.FirstName
+            }).ToList();
+        }
+
         public bool GetByEmail(string email)
         {
             return repository.GetAll().Any(x => x.Email == email);
@@ -20,7 +29,12 @@ namespace RA.Business.Concrete
 
         public List<Employee> GetByFirstName(string firstName)
         {
-            return repository.GetAll().Where(x => x.FirstName == firstName).ToList();
+            return repository.GetAll().Select(x=>new Employee
+            {
+                ID = x.ID,
+                FirstName = x.FirstName,
+                LastName = x.LastName
+            }).Where(x => x.FirstName == firstName).ToList();
         }
     }
 }

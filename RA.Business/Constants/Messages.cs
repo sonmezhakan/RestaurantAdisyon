@@ -8,6 +8,8 @@
         public static string TableNameError = "Bu İsimde Bir Masa İsmi Bulunmaktadır!";
         public static string ProductNameError = "Bu İsimde Bir Ürün Bulunmaktadır!";
         public static string TableNotNull = "Lütfen Bir Masa Seçiniz!";
-
+        public static string UserNameError = "Bu İsimde Bir Kullanıcı Bulunmaktadır!";
+        public static string EmployeeIdError = "Bu Çalışana Daha Önceden Kullanıcı Oluşturulmuş!";
+        public static string LoginError = "Kullanıcı Adı veya Şifre Hatalı!";
     }
 }

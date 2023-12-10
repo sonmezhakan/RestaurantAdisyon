@@ -7,6 +7,7 @@
         public void Delete(int id);
         public Product GetById(int id);
         public List<Product> GetAll();
+        public List<Product> GetAllComboBox();
         public Product GetByName(string productName);
     }
 }

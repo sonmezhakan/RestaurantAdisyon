@@ -66,12 +66,12 @@
             // 
             // panelMid
             // 
-            panelMid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelMid.AutoScroll = true;
+            panelMid.Dock = DockStyle.Fill;
             panelMid.Location = new Point(498, 100);
             panelMid.MinimumSize = new Size(125, 0);
             panelMid.Name = "panelMid";
-            panelMid.Size = new Size(536, 772);
+            panelMid.Size = new Size(751, 772);
             panelMid.TabIndex = 9;
             // 
             // lblTableName
@@ -155,7 +155,7 @@
             panelBottom.Dock = DockStyle.Bottom;
             panelBottom.Location = new Point(0, 872);
             panelBottom.Name = "panelBottom";
-            panelBottom.Size = new Size(1034, 169);
+            panelBottom.Size = new Size(1249, 169);
             panelBottom.TabIndex = 6;
             // 
             // label2
@@ -173,7 +173,7 @@
             // 
             bttnPayment.Dock = DockStyle.Right;
             bttnPayment.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            bttnPayment.Location = new Point(796, 0);
+            bttnPayment.Location = new Point(1011, 0);
             bttnPayment.Name = "bttnPayment";
             bttnPayment.Size = new Size(238, 169);
             bttnPayment.TabIndex = 2;
@@ -199,6 +199,7 @@
             siparişListesiToolStripMenuItem.Name = "siparişListesiToolStripMenuItem";
             siparişListesiToolStripMenuItem.Size = new Size(174, 26);
             siparişListesiToolStripMenuItem.Text = "Sipariş Listesi";
+            siparişListesiToolStripMenuItem.Click += siparişListesiToolStripMenuItem_Click;
             // 
             // toolStripDropDownButtonOrder
             // 
@@ -245,6 +246,7 @@
             toolStripButtonUser.Text = "Kullanıcılar";
             toolStripButtonUser.TextAlign = ContentAlignment.BottomCenter;
             toolStripButtonUser.TextImageRelation = TextImageRelation.ImageAboveText;
+            toolStripButtonUser.Click += toolStripButtonUser_Click;
             // 
             // toolStripSeparator2
             // 
@@ -305,11 +307,11 @@
             // 
             panelRight.AutoScroll = true;
             panelRight.Dock = DockStyle.Right;
-            panelRight.Location = new Point(1034, 100);
+            panelRight.Location = new Point(1249, 100);
             panelRight.MaximumSize = new Size(870, 772);
             panelRight.MinimumSize = new Size(125, 100);
             panelRight.Name = "panelRight";
-            panelRight.Size = new Size(870, 772);
+            panelRight.Size = new Size(655, 772);
             panelRight.TabIndex = 8;
             // 
             // panelTop

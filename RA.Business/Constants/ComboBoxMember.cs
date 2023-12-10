@@ -8,5 +8,6 @@
         public static string LastName = "LastName";
         public static string TableName = "TableName";
         public static string ProductName = "ProductName";
+        public static string UserName ="UserName";
     }
 }

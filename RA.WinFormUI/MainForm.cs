@@ -24,6 +24,8 @@ namespace RA.WinFormUI
         OrderManager orderRepository = new OrderManager();
         OrderDetailManager orderDetailRepository = new OrderDetailManager();
 
+        public static int userId;
+
         int tableId = 0;
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -32,6 +34,7 @@ namespace RA.WinFormUI
             TableList();
             DgwSettings();
         }
+
         private void ProductList()
         {
             int widht = 100;
@@ -46,7 +49,7 @@ namespace RA.WinFormUI
                 int k = i - 1;
                 buttonArray[k] = new Button();
                 buttonArray[k].Name = getProduct[k].ID.ToString();
-                buttonArray[k].Text = getProduct[k].ProductName + "\n" + getProduct[k].UnitPrice + " ₺";
+                buttonArray[k].Text = getProduct[k].ProductName + "\n" + Math.Round(getProduct[k].UnitPrice, 2) + " ₺";
                 buttonArray[k].Size = new Size(widht, height);
                 buttonArray[k].Location = new Point(locX, locY);
                 buttonArray[k].Click += new EventHandler(this.ButtonArray_click);
@@ -65,7 +68,7 @@ namespace RA.WinFormUI
 
                 locX += widht + 5;
 
-                if (i % 8 == 0)
+                if (i % 6 == 0)
                 {
                     locX = 15;
                     locY += height + 5;
@@ -129,7 +132,7 @@ namespace RA.WinFormUI
             {
                 OrderID = order.ID,
                 ProductID = product.ID,
-                UnitPrice = product.UnitPrice,
+                UnitPrice = Math.Round(product.UnitPrice, 2),
                 Quantity = 1,
                 Discount = 0,
                 CreatedDate = DateTime.Now,
@@ -177,7 +180,7 @@ namespace RA.WinFormUI
 
                 locX += widht + 5;
 
-                if (i % 5 == 0)
+                if (i % 6 == 0)
                 {
                     locX = 11;
                     locY += height + 5;
@@ -207,17 +210,17 @@ namespace RA.WinFormUI
 
                 foreach (var item in orderDetailRepository.GetByOrderIdList(resultOrder.ID))
                 {
-                    dataGridView1.Rows.Add(item.OrderID, productRepository.GetById(item.ProductID).ProductName, item.Quantity, item.UnitPrice);
-                    totalPrice += item.Quantity * item.UnitPrice;
+                    dataGridView1.Rows.Add(item.OrderID, productRepository.GetById(item.ProductID).ProductName, item.Quantity, Math.Round(item.UnitPrice, 2));
+                    totalPrice += Math.Round(item.Quantity * item.UnitPrice, 2);
                 }
-                lblTotalPrice.Text = totalPrice.ToString();
+                lblTotalPrice.Text = Math.Round(totalPrice, 2).ToString();
             }
             else
             {
                 totalPrice = 0;
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
-                lblTotalPrice.Text = totalPrice.ToString();
+                lblTotalPrice.Text = Math.Round(totalPrice, 2).ToString();
             }
         }
         private void DgwSettings()
@@ -281,9 +284,21 @@ namespace RA.WinFormUI
         {
 
             PaymentForm paymentForm = new PaymentForm();
-            PaymentForm.totalPrice = decimal.Parse(lblTotalPrice.Text);
+            PaymentForm.totalPrice = Math.Round(decimal.Parse(lblTotalPrice.Text), 2);
             PaymentForm.getOrder = orderRepository.GetByTableId(tableId, true);
             paymentForm.ShowDialog();
+        }
+
+        private void toolStripButtonUser_Click(object sender, EventArgs e)
+        {
+            AppUserForm appUserForm = new AppUserForm();
+            appUserForm.Show();
+        }
+
+        private void siparişListesiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrderForm orderForm = new OrderForm();
+            orderForm.Show();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace RA.Business.Abstract
         public Employee GetById(int id);
         public Employee GetByFirstAndLastName(string firstName, string lastName);
         public bool GetByEmail(string email);
+        public List<Employe> GetByAllComboBox();
         public List<Employe> GetByFirstName(string firstName);
     }
 }

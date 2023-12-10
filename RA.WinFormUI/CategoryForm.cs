@@ -1,5 +1,6 @@
 ﻿using RA.Business.Concrete;
 using RA.Business.Constants;
+using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,14 +32,14 @@ namespace RA.WinFormUI
         {
             comboCategory.DisplayMember = ComboBoxMember.CategoryName;
             comboCategory.ValueMember = ComboBoxMember.ID;
-
-            comboCategory.DataSource = categoryRepository.GetAll();
+            
+            comboCategory.DataSource = categoryRepository.GetAllComboBox();
         }
 
         private void GetList()
         {
             var getCategoryList = categoryRepository.GetAll();
-            if (getCategoryList.Count > 0)
+            if (getCategoryList !=null)
             {
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
@@ -78,7 +79,7 @@ namespace RA.WinFormUI
                         Champaing = 0,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        CreatedUserId = 3
+                        CreatedUserId = MainForm.userId
                     });
                     ComboCategoryList();
                     GetList();
@@ -124,10 +125,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getCategory = categoryRepository.GetById((int)comboCategory.SelectedValue);
+            var getCategory = categoryRepository.GetById((int)comboCategory.SelectedValue).ID;
             if (getCategory != null)
             {
-                categoryRepository.Delete(getCategory.ID);
+                categoryRepository.Delete(getCategory);
                 ComboCategoryList();
                 GetList();
             }

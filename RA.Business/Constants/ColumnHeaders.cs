@@ -32,5 +32,8 @@ namespace RA.Business.Constants
 
         public static string Quantity = "Adet";
         public static string OrderID = "Sipariş Numarası";
+        public static string UserName = "Kullanıcı Adı";
+        public static string OrderDate = "Sipariş Tarihi";
+        public static string Discount = "KDV %";
     }
 }

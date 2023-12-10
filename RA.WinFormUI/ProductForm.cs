@@ -1,5 +1,6 @@
 ﻿using RA.Business.Concrete;
 using RA.Business.Constants;
+using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,9 @@ namespace RA.WinFormUI
         ProductManager productRepository = new ProductManager();
         AppUserManager appUserRepository = new AppUserManager();
         CategoryManager categoryRepository = new CategoryManager();
+
+        MainForm mainForm = new MainForm();
+
         private void ProductMain_Load(object sender, EventArgs e)
         {
             ComboProductList();
@@ -34,32 +38,19 @@ namespace RA.WinFormUI
             comboProduct.DisplayMember = ComboBoxMember.ProductName;
             comboProduct.ValueMember = ComboBoxMember.ID;
 
-            comboProduct.DataSource = productRepository.GetAll();
+            comboProduct.DataSource = productRepository.GetAllComboBox();
         }
         private void ComboCategoryList()
         {
             comboCategory.DisplayMember = ComboBoxMember.CategoryName;
             comboCategory.ValueMember = ComboBoxMember.ID;
 
-            comboCategory.DataSource = categoryRepository.GetAll();
+            comboCategory.DataSource = categoryRepository.GetAllComboBox();
         }
 
         private void comboProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getProduct = productRepository.GetById((int)comboProduct.SelectedValue);
-            if (getProduct != null)
-            {
-                lblID.Text = getProduct.ID.ToString();
-                txtProductName.Text = getProduct.ProductName;
-                txtUnitPrice.Text = getProduct.UnitPrice.ToString();
-                txtUnitStock.Text = getProduct.UnitsInStock.ToString();
-                comboChampaing.SelectedValue = getProduct.Champaing;
-                checkStatu.Checked = (bool)getProduct.IsActive;
-            }
-            else
-            {
-                MessageBox.Show(Messages.NotNull);
-            }
+            productRepository.GetById((int)comboProduct.SelectedValue);
         }
 
         private void silToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,22 +72,25 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtProductName.Text) || !string.IsNullOrEmpty(txtUnitPrice.Text) || (int)comboCategory.SelectedValue > 0)
             {
-                if (productRepository.GetByName(txtProductName.Text) != null)
+                if (productRepository.GetByName(txtProductName.Text) == null)
                 {
                     productRepository.Add(new Entities.Entity.Product
                     {
                         ProductName = txtProductName.Text,
                         CategoryID = (int)comboCategory.SelectedValue,
-                        UnitPrice = decimal.Parse(txtUnitPrice.Text),
+                        UnitPrice = Math.Round(decimal.Parse(txtUnitPrice.Text), 2),
                         UnitsInStock = 0,
                         Champaing = 0,
                         IsActive = checkStatu.Checked,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        CreatedUserId = 3
+                        CreatedUserId = MainForm.userId
                     });
                     ComboProductList();
                     GetList();
+
+
+
                 }
                 else
                 {
@@ -120,7 +114,7 @@ namespace RA.WinFormUI
                     {
                         getProduct.ProductName = txtProductName.Text;
                         getProduct.CategoryID = (int)comboCategory.SelectedValue;
-                        getProduct.UnitPrice = decimal.Parse(txtUnitPrice.Text);
+                        getProduct.UnitPrice = Math.Round(decimal.Parse(txtUnitPrice.Text), 2);
                         getProduct.Champaing = 0;
                         getProduct.IsActive = checkStatu.Checked;
                         getProduct.UpdatedDate = DateTime.Now;
@@ -128,6 +122,7 @@ namespace RA.WinFormUI
                         productRepository.Update(getProduct);
                         ComboProductList();
                         GetList();
+
                     }
                     else
                     {
@@ -147,10 +142,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getProduct = productRepository.GetById((int)comboProduct.SelectedValue);
+            var getProduct = productRepository.GetById((int)comboProduct.SelectedValue).ID;
             if (getProduct != null)
             {
-                productRepository.Delete(getProduct.ID);
+                productRepository.Delete(getProduct);
                 ComboProductList();
                 GetList();
             }
@@ -169,7 +164,7 @@ namespace RA.WinFormUI
 
                 foreach (var item in getProduct)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryRepository.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, item.UnitPrice, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserRepository.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryRepository.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, Math.Round(item.UnitPrice,2), item.IsActive, item.CreatedDate, item.UpdatedDate, appUserRepository.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
@@ -188,5 +183,7 @@ namespace RA.WinFormUI
             dataGridView1.Columns[8].HeaderText = ColumnHeaders.UpdatedDate;
             dataGridView1.Columns[9].HeaderText = ColumnHeaders.CreatedUserId;
         }
+
+
     }
 }

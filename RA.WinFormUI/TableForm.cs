@@ -1,5 +1,6 @@
 ﻿using RA.Business.Concrete;
 using RA.Business.Constants;
+using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace RA.WinFormUI
             comboTable.DisplayMember = ComboBoxMember.TableName;
             comboTable.ValueMember = ComboBoxMember.ID;
 
-            comboTable.DataSource = tableRepository.GetAll();
+            comboTable.DataSource = tableRepository.GetAllComboBox();
         }
 
         private void comboTable_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,7 +93,7 @@ namespace RA.WinFormUI
                         IsActive = checkStatu.Checked,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-                        CreatedUserId = 3
+                        CreatedUserId = MainForm.userId
                     });
                     ComboTableList();
                     GetList();
@@ -137,10 +138,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getTable = tableRepository.GetById((int)comboTable.SelectedValue);
+            var getTable = tableRepository.GetById((int)comboTable.SelectedValue).ID;
             if (getTable != null)
             {
-                tableRepository.Delete(getTable.ID);
+                tableRepository.Delete(getTable);
                 ComboTableList();
                 GetList();
             }
@@ -169,5 +170,6 @@ namespace RA.WinFormUI
         {
             GetList();
         }
+
     }
 }

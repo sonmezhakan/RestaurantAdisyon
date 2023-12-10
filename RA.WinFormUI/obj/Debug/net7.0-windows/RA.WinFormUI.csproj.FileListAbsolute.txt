@@ -71,3 +71,7 @@ C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Deb
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\ref\RA.WinFormUI.dll
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.Properties.Resources.resources
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.PaymentForm.resources
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.AppUserForm.resources
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\bin\Debug\net7.0-windows\RA.WinFormUI.dll.config
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.OrderForm.resources
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.OrderDetailForm.resources
