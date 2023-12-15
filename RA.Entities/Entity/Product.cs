@@ -12,5 +12,6 @@ namespace RA.Entities.Entity
         public AppUser CreatedUser { get; set; }
         public Category Category { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public List<Stock> Stocks { get; set; }
     }
 }

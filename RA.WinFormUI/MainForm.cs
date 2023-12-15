@@ -122,7 +122,7 @@ namespace RA.WinFormUI
                 IsActive = true,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                CreatedUserId = 3,
+                CreatedUserId = userId,
             });
         }
 
@@ -137,7 +137,7 @@ namespace RA.WinFormUI
                 Discount = 0,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                CreatedUserId = 3
+                CreatedUserId = userId
             });
         }
         private void OrderDetailUpdate(OrderDetail orderDetail)

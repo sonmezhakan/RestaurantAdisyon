@@ -75,3 +75,5 @@ C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Deb
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\bin\Debug\net7.0-windows\RA.WinFormUI.dll.config
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.OrderForm.resources
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.OrderDetailForm.resources
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.StockForm.resources
+C:\Users\hakan\Desktop\BilgeAdam Ödev\v3\RestaurantAdisyon\RA.WinFormUI\obj\Debug\net7.0-windows\RA.WinFormUI.SupplierForm.resources

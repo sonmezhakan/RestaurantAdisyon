@@ -18,5 +18,7 @@ namespace RA.Entities.Entity
         public List<Category> Categories { get; set; }
         public List<Product> Products { get; set; }
         public List<Order> Orders { get; set; }
+        public List<Supplier> Suppliers { get; set; }
+        public List<Stock> Stocks { get; set; }
     }
 }
