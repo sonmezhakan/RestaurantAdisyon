@@ -17,5 +17,6 @@ namespace RA.Entities.Entity
         public Product Product { get; set; }
         public Supplier Supplier { get; set; }
         public AppUser CreatedUser { get; set; }
+
     }
 }
