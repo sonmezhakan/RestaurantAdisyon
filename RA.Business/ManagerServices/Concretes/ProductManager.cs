@@ -13,7 +13,7 @@ namespace RA.Business.ManagerService.Concretes
             _productRepository = productRepository;
         }
 
-        public void Add(Product product)
+        /*public void Add(Product product)
         {
             if (!_productRepository.FirstOrDefaultBool(x=>x.ProductName == product.ProductName))
             {
@@ -34,7 +34,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _productRepository.Delete(getProduct);
             }
-        }
+        }*/
 
         public List<Product> GetAllComboBox()
         {

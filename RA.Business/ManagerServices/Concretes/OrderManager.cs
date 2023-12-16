@@ -12,7 +12,7 @@ namespace RA.Business.ManagerService.Concretes
         {
             _orderRepository = orderRepository;
         }
-        public void Update(Order order)
+        /*public void Update(Order order)
         {
             if (_orderRepository.FirstOrDefaultBool(x => x.ID == order.ID))
             {
@@ -26,7 +26,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _orderRepository.Delete(getOrder);
             }
-        }
+        }*/
 
          public Order GetByTableId(int tableId)
          {

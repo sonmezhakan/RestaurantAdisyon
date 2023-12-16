@@ -15,7 +15,7 @@ namespace RA.Business.ManagerService.Concretes
             _appUserRepository = appUserRepository;
         }
 
-        public void Add(AppUser appUser)
+        /*public void Add(AppUser appUser)
         {
             if (!_appUserRepository.FirstOrDefaultBool(x => x.UserName == appUser.UserName)) _appUserRepository.Add(appUser);
         }
@@ -29,7 +29,7 @@ namespace RA.Business.ManagerService.Concretes
         public void Update(AppUser appUser)
         {
             if (!_appUserRepository.FirstOrDefaultBool(x => x.ID == appUser.ID)) _appUserRepository.Update(appUser);
-        }
+        }*/
 
         public List<AppUser> GetAllComboBox()
         {

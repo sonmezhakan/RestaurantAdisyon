@@ -13,7 +13,7 @@ namespace RA.Business.ManagerService.Concretes
         {
             _tableRepository = tableRepository;
         }
-        public void Add(Table table)
+        /*public void Add(Table table)
         {
             if (!_tableRepository.FirstOrDefaultBool(x=>x.TableName == table.TableName))
             {
@@ -34,7 +34,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _tableRepository.Delete(getTable);
             }
-        }
+        }*/
 
         public List<Table> GetAllComboBox()
         {

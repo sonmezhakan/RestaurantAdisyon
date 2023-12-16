@@ -35,8 +35,7 @@ namespace RA.DataAccess.Repositories.Concretes
         {
             using(TContext context = new TContext())
             {
-                entity.Status = Entities.Enums.DataStatus.Deleted;
-                entity.DeletedDate = DateTime.Now;
+                context.Set<T>().Remove(entity);
                 context.SaveChanges();
             }
         }
@@ -69,7 +68,6 @@ namespace RA.DataAccess.Repositories.Concretes
         {
             using(TContext context = new TContext())
             {
-                entity.Status = Entities.Enums.DataStatus.Updated;
                 entity.UpdatedDate = DateTime.Now;
                 T original = context.Set<T>().Find(entity.ID);
                 context.Entry(original).CurrentValues.SetValues(entity);

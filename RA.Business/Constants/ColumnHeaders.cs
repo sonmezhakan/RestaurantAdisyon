@@ -35,5 +35,7 @@ namespace RA.Business.Constants
         public static string UserName = "Kullanıcı Adı";
         public static string OrderDate = "Sipariş Tarihi";
         public static string Discount = "KDV %";
+        public static string CompanyName = "Firma Adı";
+        public static string ContactName = "İletişim Kurulacak Kişi";
     }
 }

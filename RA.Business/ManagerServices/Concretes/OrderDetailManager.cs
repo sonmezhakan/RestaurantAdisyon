@@ -13,7 +13,7 @@ namespace RA.Business.ManagerService.Concretes
             _orderDetailRepository = orderDetailRepository;
         }
 
-        public void Update(OrderDetail orderDetail)
+       /* public void Update(OrderDetail orderDetail)
         {
             if (_orderDetailRepository.FirstOrDefaultBool(x=>x.ID == orderDetail.ID))
             {
@@ -27,7 +27,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _orderDetailRepository.Delete(getOrderDetail);
             }
-        }
+        }*/
 
         
         public OrderDetail GetByOrderAndProductId(int orderId, int productId)

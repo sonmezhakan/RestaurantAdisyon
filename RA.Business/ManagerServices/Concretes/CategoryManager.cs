@@ -16,7 +16,7 @@ namespace RA.Business.ManagerService.Concretes
             _categoryRepository = categoryRepository;
         }
 
-        public void Add(Category category)
+        /*public void Add(Category category)
         {
             if (!_categoryRepository.FirstOrDefaultBool(x=>x.CategoryName == category.CategoryName))
             {
@@ -37,7 +37,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _categoryRepository.Delete(getCategory);
             }
-        }
+        }*/
 
         public List<Category> GetAllComboBox()
         {

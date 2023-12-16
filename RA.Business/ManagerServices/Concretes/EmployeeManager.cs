@@ -14,7 +14,7 @@ namespace RA.Business.ManagerService.Concretes
             _employeeRepository = employeeRepository;
         }
 
-        public void Add(Employee employee)
+       /* public void Add(Employee employee)
         {
             if (!_employeeRepository.FirstOrDefaultBool(x=>x.Email == employee.Email))
             {
@@ -35,7 +35,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _employeeRepository.Delete(getEmployee);
             }
-        }
+        }*/
 
         public List<Employee> GetByAllComboBox()
         {

@@ -11,5 +11,6 @@
         public static string UserNameError = "Bu İsimde Bir Kullanıcı Bulunmaktadır!";
         public static string EmployeeIdError = "Bu Çalışana Daha Önceden Kullanıcı Oluşturulmuş!";
         public static string LoginError = "Kullanıcı Adı veya Şifre Hatalı!";
+        public static string SupplierNameError = "Bu İsimde Tedarikçi Firma Adı Bulunmaktadır!";
     }
 }

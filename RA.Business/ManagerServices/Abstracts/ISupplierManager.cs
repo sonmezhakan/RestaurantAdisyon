@@ -9,12 +9,9 @@ namespace RA.Business.ManagerService.Abstracts
 {
     public interface ISupplierManager:IManager<Supplier>
     {
-       /* List<Supplier> GetAll();
         List<Supplier> GetAllComboBox();
         Supplier GetById(int id);
-        Supplier GetByName(string name);
-        void Add(Supplier supplier);
-        void Update(Supplier supplier);
-        void Delete(int id);*/
+        Supplier GetByName(string companyName);
+        bool GetByNameBool(string companyName);
     }
 }

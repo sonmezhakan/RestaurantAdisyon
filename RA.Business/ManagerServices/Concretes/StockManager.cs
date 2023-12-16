@@ -17,7 +17,7 @@ namespace RA.Business.ManagerService.Concretes
         {
             _stockRepository = stockRepository;
         }
-        public void Update(Stock stock)
+        /*public void Update(Stock stock)
         {
             if (_stockRepository.FirstOrDefaultBool(x=>x.ID == stock.ID))
             {
@@ -31,7 +31,7 @@ namespace RA.Business.ManagerService.Concretes
             {
                 _stockRepository.Delete(getStock);
             }
-        }
+        }*/
 
 
         

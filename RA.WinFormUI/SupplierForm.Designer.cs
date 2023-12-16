@@ -29,76 +29,97 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            panelLeft = new Panel();
-            lblID = new Label();
-            checkStatu = new CheckBox();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            silToolStripMenuItem = new ToolStripMenuItem();
+            yenileToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            comboSupplier = new ComboBox();
+            txtCompanyName = new TextBox();
             panelLeftBottom = new Panel();
             bttnDelete = new Button();
             bttnUpdate = new Button();
             bttnAdd = new Button();
-            txtCategoryName = new TextBox();
-            comboCategory = new ComboBox();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
+            checkStatu = new CheckBox();
+            lblID = new Label();
+            txtContactName = new TextBox();
+            txtAdress = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            txtPhoneNumber = new TextBox();
+            panelLeft = new Panel();
             panelMid = new Panel();
             dataGridView1 = new DataGridView();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            silToolStripMenuItem = new ToolStripMenuItem();
-            yenileToolStripMenuItem = new ToolStripMenuItem();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            label4 = new Label();
-            textBox3 = new TextBox();
-            label5 = new Label();
-            panelLeft.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
             panelLeftBottom.SuspendLayout();
+            panelLeft.SuspendLayout();
             panelMid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // panelLeft
+            // contextMenuStrip1
             // 
-            panelLeft.Controls.Add(textBox3);
-            panelLeft.Controls.Add(label5);
-            panelLeft.Controls.Add(label4);
-            panelLeft.Controls.Add(textBox2);
-            panelLeft.Controls.Add(textBox1);
-            panelLeft.Controls.Add(lblID);
-            panelLeft.Controls.Add(checkStatu);
-            panelLeft.Controls.Add(panelLeftBottom);
-            panelLeft.Controls.Add(txtCategoryName);
-            panelLeft.Controls.Add(comboCategory);
-            panelLeft.Controls.Add(label3);
-            panelLeft.Controls.Add(label2);
-            panelLeft.Controls.Add(label1);
-            panelLeft.Dock = DockStyle.Left;
-            panelLeft.Location = new Point(0, 0);
-            panelLeft.Name = "panelLeft";
-            panelLeft.Size = new Size(367, 681);
-            panelLeft.TabIndex = 4;
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { silToolStripMenuItem, yenileToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(106, 48);
             // 
-            // lblID
+            // silToolStripMenuItem
             // 
-            lblID.AutoSize = true;
-            lblID.Location = new Point(232, 22);
-            lblID.Name = "lblID";
-            lblID.Size = new Size(13, 15);
-            lblID.TabIndex = 15;
-            lblID.Text = "0";
+            silToolStripMenuItem.Name = "silToolStripMenuItem";
+            silToolStripMenuItem.Size = new Size(105, 22);
+            silToolStripMenuItem.Text = "Sil";
+            silToolStripMenuItem.Click += silToolStripMenuItem_Click;
             // 
-            // checkStatu
+            // yenileToolStripMenuItem
             // 
-            checkStatu.AutoSize = true;
-            checkStatu.Checked = true;
-            checkStatu.CheckState = CheckState.Checked;
-            checkStatu.Location = new Point(161, 240);
-            checkStatu.Name = "checkStatu";
-            checkStatu.Size = new Size(63, 19);
-            checkStatu.TabIndex = 14;
-            checkStatu.Text = "Durum";
-            checkStatu.UseVisualStyleBackColor = true;
+            yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
+            yenileToolStripMenuItem.Size = new Size(105, 22);
+            yenileToolStripMenuItem.Text = "Yenile";
+            yenileToolStripMenuItem.Click += yenileToolStripMenuItem_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(13, 43);
+            label1.Name = "label1";
+            label1.Size = new Size(142, 15);
+            label1.TabIndex = 0;
+            label1.Text = "İşlem Yapılacak Tedarikçi :";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(91, 72);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Firma Adı :";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(28, 101);
+            label3.Name = "label3";
+            label3.Size = new Size(127, 15);
+            label3.TabIndex = 2;
+            label3.Text = "İletişim Kurulacak Kişi :";
+            // 
+            // comboSupplier
+            // 
+            comboSupplier.FormattingEnabled = true;
+            comboSupplier.Location = new Point(161, 40);
+            comboSupplier.Name = "comboSupplier";
+            comboSupplier.Size = new Size(167, 23);
+            comboSupplier.TabIndex = 5;
+            comboSupplier.SelectedIndexChanged += comboSupplier_SelectedIndexChanged;
+            // 
+            // txtCompanyName
+            // 
+            txtCompanyName.Location = new Point(161, 69);
+            txtCompanyName.Name = "txtCompanyName";
+            txtCompanyName.Size = new Size(167, 23);
+            txtCompanyName.TabIndex = 6;
             // 
             // panelLeftBottom
             // 
@@ -121,6 +142,7 @@
             bttnDelete.TabIndex = 13;
             bttnDelete.Text = "Sil";
             bttnDelete.UseVisualStyleBackColor = true;
+            bttnDelete.Click += bttnDelete_Click;
             // 
             // bttnUpdate
             // 
@@ -132,6 +154,7 @@
             bttnUpdate.TabIndex = 12;
             bttnUpdate.Text = "Güncelle";
             bttnUpdate.UseVisualStyleBackColor = true;
+            bttnUpdate.Click += bttnUpdate_Click;
             // 
             // bttnAdd
             // 
@@ -143,57 +166,98 @@
             bttnAdd.TabIndex = 10;
             bttnAdd.Text = "Ekle";
             bttnAdd.UseVisualStyleBackColor = true;
+            bttnAdd.Click += bttnAdd_Click;
             // 
-            // txtCategoryName
+            // checkStatu
             // 
-            txtCategoryName.Location = new Point(161, 69);
-            txtCategoryName.Name = "txtCategoryName";
-            txtCategoryName.Size = new Size(167, 23);
-            txtCategoryName.TabIndex = 6;
+            checkStatu.AutoSize = true;
+            checkStatu.Checked = true;
+            checkStatu.CheckState = CheckState.Checked;
+            checkStatu.Location = new Point(161, 240);
+            checkStatu.Name = "checkStatu";
+            checkStatu.Size = new Size(63, 19);
+            checkStatu.TabIndex = 14;
+            checkStatu.Text = "Durum";
+            checkStatu.UseVisualStyleBackColor = true;
             // 
-            // comboCategory
+            // lblID
             // 
-            comboCategory.FormattingEnabled = true;
-            comboCategory.Location = new Point(161, 40);
-            comboCategory.Name = "comboCategory";
-            comboCategory.Size = new Size(167, 23);
-            comboCategory.TabIndex = 5;
+            lblID.AutoSize = true;
+            lblID.Location = new Point(232, 22);
+            lblID.Name = "lblID";
+            lblID.Size = new Size(13, 15);
+            lblID.TabIndex = 15;
+            lblID.Text = "0";
             // 
-            // label3
+            // txtContactName
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(28, 101);
-            label3.Name = "label3";
-            label3.Size = new Size(127, 15);
-            label3.TabIndex = 2;
-            label3.Text = "İletişim Kurulacak Kişi :";
+            txtContactName.Location = new Point(161, 98);
+            txtContactName.Name = "txtContactName";
+            txtContactName.Size = new Size(167, 23);
+            txtContactName.TabIndex = 16;
             // 
-            // label2
+            // txtAdress
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(91, 72);
-            label2.Name = "label2";
-            label2.Size = new Size(64, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Firma Adı :";
+            txtAdress.Location = new Point(161, 156);
+            txtAdress.Multiline = true;
+            txtAdress.Name = "txtAdress";
+            txtAdress.Size = new Size(167, 78);
+            txtAdress.TabIndex = 17;
             // 
-            // label1
+            // label4
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(13, 43);
-            label1.Name = "label1";
-            label1.Size = new Size(142, 15);
-            label1.TabIndex = 0;
-            label1.Text = "İşlem Yapılacak Tedarikçi :";
+            label4.AutoSize = true;
+            label4.Location = new Point(112, 160);
+            label4.Name = "label4";
+            label4.Size = new Size(43, 15);
+            label4.TabIndex = 18;
+            label4.Text = "Adres :";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(85, 130);
+            label5.Name = "label5";
+            label5.Size = new Size(70, 15);
+            label5.TabIndex = 19;
+            label5.Text = "Telefon No :";
+            // 
+            // txtPhoneNumber
+            // 
+            txtPhoneNumber.Location = new Point(161, 127);
+            txtPhoneNumber.Name = "txtPhoneNumber";
+            txtPhoneNumber.Size = new Size(167, 23);
+            txtPhoneNumber.TabIndex = 20;
+            // 
+            // panelLeft
+            // 
+            panelLeft.Controls.Add(txtPhoneNumber);
+            panelLeft.Controls.Add(label5);
+            panelLeft.Controls.Add(label4);
+            panelLeft.Controls.Add(txtAdress);
+            panelLeft.Controls.Add(txtContactName);
+            panelLeft.Controls.Add(lblID);
+            panelLeft.Controls.Add(checkStatu);
+            panelLeft.Controls.Add(panelLeftBottom);
+            panelLeft.Controls.Add(txtCompanyName);
+            panelLeft.Controls.Add(comboSupplier);
+            panelLeft.Controls.Add(label3);
+            panelLeft.Controls.Add(label2);
+            panelLeft.Controls.Add(label1);
+            panelLeft.Dock = DockStyle.Left;
+            panelLeft.Location = new Point(0, 0);
+            panelLeft.Name = "panelLeft";
+            panelLeft.Size = new Size(367, 681);
+            panelLeft.TabIndex = 4;
             // 
             // panelMid
             // 
             panelMid.Controls.Add(dataGridView1);
             panelMid.Dock = DockStyle.Fill;
-            panelMid.Location = new Point(0, 0);
+            panelMid.Location = new Point(367, 0);
             panelMid.Name = "panelMid";
-            panelMid.Size = new Size(1264, 681);
-            panelMid.TabIndex = 5;
+            panelMid.Size = new Size(897, 681);
+            panelMid.TabIndex = 6;
             // 
             // dataGridView1
             // 
@@ -209,110 +273,52 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1264, 681);
-            dataGridView1.TabIndex = 0;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { silToolStripMenuItem, yenileToolStripMenuItem });
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(106, 48);
-            // 
-            // silToolStripMenuItem
-            // 
-            silToolStripMenuItem.Name = "silToolStripMenuItem";
-            silToolStripMenuItem.Size = new Size(105, 22);
-            silToolStripMenuItem.Text = "Sil";
-            // 
-            // yenileToolStripMenuItem
-            // 
-            yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
-            yenileToolStripMenuItem.Size = new Size(105, 22);
-            yenileToolStripMenuItem.Text = "Yenile";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(161, 98);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(167, 23);
-            textBox1.TabIndex = 16;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(161, 156);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(167, 78);
-            textBox2.TabIndex = 17;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(112, 160);
-            label4.Name = "label4";
-            label4.Size = new Size(43, 15);
-            label4.TabIndex = 18;
-            label4.Text = "Adres :";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(161, 127);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(167, 23);
-            textBox3.TabIndex = 20;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(85, 130);
-            label5.Name = "label5";
-            label5.Size = new Size(70, 15);
-            label5.TabIndex = 19;
-            label5.Text = "Telefon No :";
+            dataGridView1.Size = new Size(897, 681);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.DoubleClick += dataGridView1_DoubleClick;
             // 
             // SupplierForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 681);
-            Controls.Add(panelLeft);
             Controls.Add(panelMid);
+            Controls.Add(panelLeft);
             Name = "SupplierForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SupplierForm";
             Load += SupplierForm_Load;
+            contextMenuStrip1.ResumeLayout(false);
+            panelLeftBottom.ResumeLayout(false);
             panelLeft.ResumeLayout(false);
             panelLeft.PerformLayout();
-            panelLeftBottom.ResumeLayout(false);
             panelMid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panelLeft;
-        private TextBox textBox3;
-        private Label label5;
-        private Label label4;
-        private TextBox textBox2;
-        private TextBox textBox1;
-        private Label lblID;
-        private CheckBox checkStatu;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem silToolStripMenuItem;
+        private ToolStripMenuItem yenileToolStripMenuItem;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private ComboBox comboSupplier;
+        private TextBox txtCompanyName;
         private Panel panelLeftBottom;
         private Button bttnDelete;
         private Button bttnUpdate;
         private Button bttnAdd;
-        private TextBox txtCategoryName;
-        private ComboBox comboCategory;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private CheckBox checkStatu;
+        private Label lblID;
+        private TextBox txtContactName;
+        private TextBox txtAdress;
+        private Label label4;
+        private Label label5;
+        private TextBox txtPhoneNumber;
+        private Panel panelLeft;
         private Panel panelMid;
         private DataGridView dataGridView1;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem silToolStripMenuItem;
-        private ToolStripMenuItem yenileToolStripMenuItem;
     }
 }
