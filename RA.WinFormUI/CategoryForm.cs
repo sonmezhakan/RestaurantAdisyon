@@ -1,5 +1,8 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Concrete;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,8 +22,10 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        CategoryManager categoryRepository = new CategoryManager();
-        AppUserManager appUserRepository = new AppUserManager();
+
+        CategoryManager categoryManager = new CategoryManager(new CategoryRepository());
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+
         private void CategoryForm_Load(object sender, EventArgs e)
         {
             ComboCategoryList();
@@ -33,20 +38,20 @@ namespace RA.WinFormUI
             comboCategory.DisplayMember = ComboBoxMember.CategoryName;
             comboCategory.ValueMember = ComboBoxMember.ID;
             
-            comboCategory.DataSource = categoryRepository.GetAllComboBox();
+            comboCategory.DataSource = categoryManager.GetAllComboBox();
         }
 
         private void GetList()
         {
-            var getCategoryList = categoryRepository.GetAll();
+            var getCategoryList = categoryManager.GetAll();
             if (getCategoryList !=null)
             {
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
 
-                foreach (var item in categoryRepository.GetAll())
+                foreach (var item in categoryManager.GetAll())
                 {
-                    dataGridView1.Rows.Add(item.ID, item.CategoryName, item.Desription, item.Champaing, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserRepository.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.CategoryName, item.Desription, item.Champaing, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.FirstOrDefault(x=>x.ID == item.CreatedUserId).UserName);
                 }
             }
         }
@@ -69,9 +74,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtCategoryName.Text))
             {
-                if (categoryRepository.GetByCategoryName(txtCategoryName.Text) == null)
+                if (categoryManager.FirstOrDefault(x=>x.CategoryName == txtCategoryName.Text) == null)
                 {
-                    categoryRepository.Add(new Entities.Entity.Category
+                    categoryManager.Add(new Entities.Entity.Category
                     {
                         CategoryName = txtCategoryName.Text,
                         Desription = txtDescription.Text,
@@ -98,17 +103,17 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getCategory = categoryRepository.GetById((int)comboCategory.SelectedValue);
+            var getCategory = categoryManager.FirstOrDefault(x => x.ID == (int)comboCategory.SelectedValue);
             if (getCategory != null && !string.IsNullOrEmpty(txtCategoryName.Text))
             {
-                if (comboCategory.Text == txtCategoryName.Text || categoryRepository.GetByCategoryName(txtCategoryName.Text) == null)
+                if (comboCategory.Text == txtCategoryName.Text || categoryManager.FirstOrDefault(x=>x.CategoryName == txtCategoryName.Text) == null)
                 {
                     getCategory.CategoryName = txtCategoryName.Text;
                     getCategory.Desription = txtDescription.Text;
                     getCategory.IsActive = checkStatu.Checked;
                     getCategory.UpdatedDate = DateTime.Now;
 
-                    categoryRepository.Update(getCategory);
+                    categoryManager.Update(getCategory);
                     ComboCategoryList();
                     GetList();
                 }
@@ -125,10 +130,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getCategory = categoryRepository.GetById((int)comboCategory.SelectedValue).ID;
+            var getCategory = categoryManager.FirstOrDefault(x => x.ID == (int)comboCategory.SelectedValue);
             if (getCategory != null)
             {
-                categoryRepository.Delete(getCategory);
+                categoryManager.Delete(getCategory);
                 ComboCategoryList();
                 GetList();
             }
@@ -140,7 +145,7 @@ namespace RA.WinFormUI
 
         private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getCategory = categoryRepository.GetById((int)comboCategory.SelectedValue);
+            var getCategory = categoryManager.FirstOrDefault(x=>x.ID == (int)comboCategory.SelectedValue);
             if (getCategory != null)
             {
                 lblID.Text = getCategory.ID.ToString();

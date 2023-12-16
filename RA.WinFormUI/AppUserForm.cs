@@ -1,7 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.ApplicationServices;
-using RA.Business.Concrete;
 using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Concrete;
+using RA.DataAccess.Repositories.Abstracts;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -21,8 +25,10 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        AppUserManager userManager = new AppUserManager();
-        EmployeeManager employeeManager = new EmployeeManager();
+
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+        EmployeeManager employeeManager = new EmployeeManager(new EmployeeRepository());
+
         private void AppUserForm_Load(object sender, EventArgs e)
         {
             ComboUserNameList();
@@ -36,7 +42,7 @@ namespace RA.WinFormUI
             comboUserName.DisplayMember = ComboBoxMember.UserName;
             comboUserName.ValueMember = ComboBoxMember.ID;
 
-            comboUserName.DataSource = userManager.GetAllComboBox();
+            comboUserName.DataSource = appUserManager.GetAllComboBox();
         }
         private void ComboFirstNameList()
         {
@@ -63,7 +69,7 @@ namespace RA.WinFormUI
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
 
-            var getUserList = userManager.GetAll();
+            var getUserList = appUserManager.GetAll();
             if(getUserList != null )
             {
                 foreach (var item in getUserList)
@@ -94,7 +100,7 @@ namespace RA.WinFormUI
 
         private void comboUserName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getUser = userManager.GetById((int)comboUserName.SelectedValue);
+            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
             if (getUser != null)
             {
                 lblID.Text = getUser.ID.ToString();
@@ -121,11 +127,11 @@ namespace RA.WinFormUI
             if(!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text) && comboEmployeeFirstName.SelectedValue != null &&
                 comboEmployeeLastName.SelectedValue != null)
             {
-                if(userManager.GetByUserName(txtUserName.Text) != null)
+                if(appUserManager.GetByUserName(txtUserName.Text) != null)
                 {
-                    if(comboEmployeeFirstName.SelectedValue.ToString() == comboEmployeeLastName.SelectedValue.ToString() && userManager.GetByEmployeeId((int)comboEmployeeFirstName.SelectedValue))
+                    if(comboEmployeeFirstName.SelectedValue.ToString() == comboEmployeeLastName.SelectedValue.ToString() && appUserManager.GetByEmployeeId((int)comboEmployeeFirstName.SelectedValue))
                     {
-                        userManager.Add(new Entities.Entity.AppUser
+                        appUserManager.Add(new Entities.Entity.AppUser
                         {
                             UserName = txtUserName.Text,
                             Password = txtPassword.Text,
@@ -155,7 +161,7 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getUser = userManager.GetById((int)comboUserName.SelectedValue);
+            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
             if(getUser != null)
             {
                 if(!string.IsNullOrEmpty(txtPassword.Text))
@@ -169,7 +175,7 @@ namespace RA.WinFormUI
 
                 if(getUser.EmployeeID != (int)comboEmployeeLastName.SelectedValue)
                 {
-                    if(userManager.GetByEmployeeId((int)comboEmployeeLastName.SelectedValue) == false)
+                    if(appUserManager.GetByEmployeeId((int)comboEmployeeLastName.SelectedValue) == false)
                     {
                         getUser.EmployeeID = (int)comboEmployeeLastName.SelectedValue;
                     }
@@ -181,7 +187,7 @@ namespace RA.WinFormUI
 
                 getUser.IsActive = checkStatu.Checked;
                 getUser.UpdatedDate = DateTime.Now;
-                userManager.Update(getUser);
+                appUserManager.Update(getUser);
                 ComboUserNameList();
                 AppUserList();
             }
@@ -193,10 +199,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getUser = userManager.GetById((int)comboUserName.SelectedValue).ID;
+            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
             if(getUser != null)
             {
-                userManager.Delete(getUser);
+                appUserManager.Delete(getUser);
                 ComboUserNameList();
                 AppUserList();
             }

@@ -4,9 +4,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    public class EmployeeConfiguration : BaseConfiguration<Employee>
     {
-        public void Configure(EntityTypeBuilder<Employee> builder)
+        public override void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.Ignore(x => x.CreatedUserId);
 

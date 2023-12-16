@@ -1,5 +1,8 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Concrete;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -15,11 +18,14 @@ namespace RA.WinFormUI
 {
     public partial class EmployeeForm : Form
     {
+        
+
         public EmployeeForm()
         {
             InitializeComponent();
         }
-        EmployeeManager employeeRepository = new EmployeeManager();
+        EmployeeManager employeeManager = new EmployeeManager(new EmployeeRepository());
+
         private void EmployeeForm_Load(object sender, EventArgs e)
         {
             ComboEmployeeFirstNameList();
@@ -31,7 +37,7 @@ namespace RA.WinFormUI
             comboEmployeeFirstName.DisplayMember = ComboBoxMember.FirstName;
             comboEmployeeFirstName.ValueMember = ComboBoxMember.ID;
 
-            comboEmployeeFirstName.DataSource = employeeRepository.GetByAllComboBox();
+            comboEmployeeFirstName.DataSource = employeeManager.GetByAllComboBox();
         }
 
         private void comboEmployeeFirstName_SelectedIndexChanged(object sender, EventArgs e)
@@ -39,14 +45,14 @@ namespace RA.WinFormUI
             comboEmployeeLastName.DisplayMember = ComboBoxMember.LastName;
             comboEmployeeLastName.ValueMember = ComboBoxMember.ID;
 
-            comboEmployeeLastName.DataSource = employeeRepository.GetByFirstName(comboEmployeeFirstName.Text);
+            comboEmployeeLastName.DataSource = employeeManager.GetByFirstName(comboEmployeeFirstName.Text);
         }
 
         private void comboEmployeeLastName_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboEmployeeFirstName.SelectedValue.ToString() == comboEmployeeLastName.SelectedValue.ToString())
             {
-                var getEmployee = employeeRepository.GetById((int)comboEmployeeLastName.SelectedValue);
+                var getEmployee = employeeManager.GetById((int)comboEmployeeLastName.SelectedValue);
                 if (getEmployee != null)
                 {
                     lblID.Text = getEmployee.ID.ToString();
@@ -58,12 +64,10 @@ namespace RA.WinFormUI
                     checkStatu.Checked = (bool)getEmployee.IsActive;
                 }
             }
-
-
         }
         private void GetList()
         {
-            var employeeList = employeeRepository.GetAll();
+            var employeeList = employeeManager.GetAll();
             if (employeeList != null)
             {
                 dataGridView1.DataSource = null;
@@ -96,9 +100,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtFirstName.Text) || !string.IsNullOrEmpty(txtLastName.Text) || !string.IsNullOrEmpty(txtEmail.Text) || !string.IsNullOrEmpty(txtPhoneNumber.Text))
             {
-                if (employeeRepository.GetByEmail(txtEmail.Text) == false)
+                if (employeeManager.GetByEmail(txtEmail.Text) == false)
                 {
-                    employeeRepository.Add(new Entities.Entity.Employee
+                    employeeManager.Add(new Entities.Entity.Employee
                     {
                         FirstName = txtFirstName.Text,
                         LastName = txtLastName.Text,
@@ -125,10 +129,10 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getEmployee = employeeRepository.GetById((int)comboEmployeeLastName.SelectedValue);
+            var getEmployee = employeeManager.GetById((int)comboEmployeeLastName.SelectedValue);
             if (getEmployee != null && !string.IsNullOrEmpty(txtFirstName.Text) || !string.IsNullOrEmpty(txtLastName.Text) || !string.IsNullOrEmpty(txtEmail.Text) || !string.IsNullOrEmpty(txtPhoneNumber.Text))
             {
-                if (getEmployee.Email == txtEmail.Text || employeeRepository.GetByEmail(txtEmail.Text) != true)
+                if (getEmployee.Email == txtEmail.Text || employeeManager.GetByEmail(txtEmail.Text) != true)
                 {
                     getEmployee.FirstName = txtFirstName.Text;
                     getEmployee.LastName = txtLastName.Text;
@@ -138,7 +142,7 @@ namespace RA.WinFormUI
                     getEmployee.IsActive = checkStatu.Checked;
                     getEmployee.UpdatedDate = DateTime.Now;
 
-                    employeeRepository.Update(getEmployee);
+                    employeeManager.Update(getEmployee);
                     ComboEmployeeFirstNameList();
                     GetList();
                 }
@@ -155,10 +159,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getEmployee = employeeRepository.GetById((int)comboEmployeeLastName.SelectedValue).ID;
+            var getEmployee = employeeManager.GetById((int)comboEmployeeLastName.SelectedValue);
             if (getEmployee != null)
             {
-                employeeRepository.Delete(getEmployee);
+                employeeManager.Delete(getEmployee);
                 ComboEmployeeFirstNameList();
                 GetList();
             }

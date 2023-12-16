@@ -1,8 +1,6 @@
-﻿using RA.Entities.Abstract;
-
-namespace RA.Entities.Entity
+﻿namespace RA.Entities.Entity
 {
-    public class Product : ChampaingAbstract
+    public class Product : ChampaingEntity
     {
         public int CategoryID { get; set; }
         public string ProductName { get; set; }
@@ -12,5 +10,6 @@ namespace RA.Entities.Entity
         public AppUser CreatedUser { get; set; }
         public Category Category { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public List<Stock> Stocks { get; set; }
     }
 }

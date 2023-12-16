@@ -1,8 +1,8 @@
-﻿using RA.Entities.Abstract;
+﻿using RA.Entities.Interfaces;
 
 namespace RA.Entities.Entity
 {
-    public class Order : EntityAbstract
+    public class Order : BaseEntity
     {
         public int? TableId { get; set; }
         public DateTime OrderDate { get; set; }

@@ -9,9 +9,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
+    public class AppUserConfiguration : BaseConfiguration<AppUser>
     {
-        public void Configure(EntityTypeBuilder<AppUser> builder)
+        public override void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.Ignore(x => x.CreatedUserId);
 

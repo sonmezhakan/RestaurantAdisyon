@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,8 +21,10 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        TableManager tableRepository = new TableManager();
-        AppUserManager appUserRepository = new AppUserManager();
+
+        TableManager tableManager = new TableManager(new TableRepository());
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+
         private void TableForm_Load(object sender, EventArgs e)
         {
             ComboTableList();
@@ -32,12 +36,12 @@ namespace RA.WinFormUI
             comboTable.DisplayMember = ComboBoxMember.TableName;
             comboTable.ValueMember = ComboBoxMember.ID;
 
-            comboTable.DataSource = tableRepository.GetAllComboBox();
+            comboTable.DataSource = tableManager.GetAllComboBox();
         }
 
         private void comboTable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getTable = tableRepository.GetById((int)comboTable.SelectedValue);
+            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
             if (getTable != null)
             {
                 lblID.Text = getTable.ID.ToString();
@@ -53,7 +57,7 @@ namespace RA.WinFormUI
 
         private void GetList()
         {
-            var tableList = tableRepository.GetAll();
+            var tableList = tableManager.GetAll();
             if (tableList != null)
             {
                 dataGridView1.DataSource = null;
@@ -62,7 +66,7 @@ namespace RA.WinFormUI
                 foreach (var item in tableList)
                 {
                     dataGridView1.Rows.Add(item.ID, item.TableName, item.Description, item.IsActive, item.CreatedDate, item.UpdatedDate,
-                        appUserRepository.GetById(item.CreatedUserId).UserName);
+                        appUserManager.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
@@ -84,9 +88,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtTableName.Text))
             {
-                if (tableRepository.GetByTableName(txtTableName.Text) != true)
+                if (tableManager.GetByTableName(txtTableName.Text) != true)
                 {
-                    tableRepository.Add(new Entities.Entity.Table
+                    tableManager.Add(new Entities.Entity.Table
                     {
                         TableName = txtTableName.Text,
                         Description = txtDescription.Text,
@@ -111,17 +115,17 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getTable = tableRepository.GetById((int)comboTable.SelectedValue);
+            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
             if (getTable != null && !string.IsNullOrEmpty(txtTableName.Text))
             {
-                if (getTable.TableName == txtTableName.Text || tableRepository.GetByTableName(txtTableName.Text) != true)
+                if (getTable.TableName == txtTableName.Text || tableManager.GetByTableName(txtTableName.Text) != true)
                 {
                     getTable.TableName = txtTableName.Text;
                     getTable.Description = txtDescription.Text;
                     getTable.IsActive = checkStatu.Checked;
                     getTable.UpdatedDate = DateTime.Now;
 
-                    tableRepository.Update(getTable);
+                    tableManager.Update(getTable);
                     ComboTableList();
                     GetList();
                 }
@@ -138,10 +142,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getTable = tableRepository.GetById((int)comboTable.SelectedValue).ID;
+            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
             if (getTable != null)
             {
-                tableRepository.Delete(getTable);
+                tableManager.Delete(getTable);
                 ComboTableList();
                 GetList();
             }

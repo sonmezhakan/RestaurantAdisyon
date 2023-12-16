@@ -4,9 +4,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<Order>
+    public class OrderConfiguration : BaseConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<Order> builder)
+        public override void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.Property(x => x.OrderDate).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();

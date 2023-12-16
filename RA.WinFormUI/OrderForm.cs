@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +15,16 @@ using System.Windows.Forms;
 namespace RA.WinFormUI
 {
     public partial class OrderForm : Form
-    {
+    { 
         public OrderForm()
         {
             InitializeComponent();
         }
-        OrderManager orderManager = new OrderManager();
-        AppUserManager userManager = new AppUserManager();
-        TableManager tableManager = new TableManager();
+
+        OrderManager orderManager = new OrderManager(new OrderRepository());
+        TableManager tableManager = new TableManager(new TableRepository());
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+
         private void OrderForm_Load(object sender, EventArgs e)
         {
             DgwSettings();
@@ -36,7 +40,7 @@ namespace RA.WinFormUI
 
                 foreach (var item in getOrder)
                 {
-                    dataGridView1.Rows.Add(item.ID, tableManager.GetById((int)item.TableId).TableName, item.OrderDate, item.IsActive, item.CreatedDate, item.UpdatedDate, userManager.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, tableManager.GetById((int)item.TableId).TableName, item.OrderDate, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
                 }
             }
         }

@@ -33,6 +33,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
@@ -44,7 +47,11 @@ namespace RA.DataAccess.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -81,6 +88,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Desription")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -88,7 +98,11 @@ namespace RA.DataAccess.Migrations
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -114,6 +128,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -136,7 +153,11 @@ namespace RA.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("char(11)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -158,17 +179,24 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TableId")
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -194,6 +222,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(18,2)");
 
@@ -209,10 +240,14 @@ namespace RA.DataAccess.Migrations
                     b.Property<short>("Quantity")
                         .HasColumnType("smallint");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -244,6 +279,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -252,13 +290,17 @@ namespace RA.DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
                     b.Property<int>("UnitsInStock")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -268,6 +310,109 @@ namespace RA.DataAccess.Migrations
                     b.HasIndex("CreatedUserId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("RA.Entities.Entity.Stock", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("money");
+
+                    b.Property<int>("UnitsInStock")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("SupplierID");
+
+                    b.ToTable("Stocks");
+                });
+
+            modelBuilder.Entity("RA.Entities.Entity.Supplier", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("ContactName")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("char(11)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("RA.Entities.Entity.Table", b =>
@@ -284,6 +429,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -291,12 +439,16 @@ namespace RA.DataAccess.Migrations
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("TableName")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -383,6 +535,44 @@ namespace RA.DataAccess.Migrations
                     b.Navigation("CreatedUser");
                 });
 
+            modelBuilder.Entity("RA.Entities.Entity.Stock", b =>
+                {
+                    b.HasOne("RA.Entities.Entity.AppUser", "CreatedUser")
+                        .WithMany("Stocks")
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RA.Entities.Entity.Product", "Product")
+                        .WithMany("Stocks")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RA.Entities.Entity.Supplier", "Supplier")
+                        .WithMany("Stocks")
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("RA.Entities.Entity.Supplier", b =>
+                {
+                    b.HasOne("RA.Entities.Entity.AppUser", "CreatedUser")
+                        .WithMany("Suppliers")
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+                });
+
             modelBuilder.Entity("RA.Entities.Entity.AppUser", b =>
                 {
                     b.Navigation("Categories");
@@ -390,6 +580,10 @@ namespace RA.DataAccess.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Products");
+
+                    b.Navigation("Stocks");
+
+                    b.Navigation("Suppliers");
                 });
 
             modelBuilder.Entity("RA.Entities.Entity.Category", b =>
@@ -410,6 +604,13 @@ namespace RA.DataAccess.Migrations
             modelBuilder.Entity("RA.Entities.Entity.Product", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("Stocks");
+                });
+
+            modelBuilder.Entity("RA.Entities.Entity.Supplier", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("RA.Entities.Entity.Table", b =>

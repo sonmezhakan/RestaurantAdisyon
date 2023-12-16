@@ -4,9 +4,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
+    public class OrderDetailConfiguration : BaseConfiguration<OrderDetail>
     {
-        public void Configure(EntityTypeBuilder<OrderDetail> builder)
+        public override void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
 
             builder.Property(x => x.ProductID).IsRequired();

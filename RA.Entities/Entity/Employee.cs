@@ -1,8 +1,8 @@
-﻿using RA.Entities.Abstract;
+﻿using RA.Entities.Interfaces;
 
 namespace RA.Entities.Entity
 {
-    public class Employee : EntityAbstract
+    public class Employee : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -10,6 +10,6 @@ namespace RA.Entities.Entity
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-        public List<AppUser> User { get; set; }
+        public virtual List<AppUser> User { get; set; }
     }
 }

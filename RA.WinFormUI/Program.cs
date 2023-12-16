@@ -1,3 +1,5 @@
+using RA.Business.ManagerService.Abstracts;
+
 namespace RA.WinFormUI
 {
     internal static class Program

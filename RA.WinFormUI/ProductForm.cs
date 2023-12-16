@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,12 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        ProductManager productRepository = new ProductManager();
-        AppUserManager appUserRepository = new AppUserManager();
-        CategoryManager categoryRepository = new CategoryManager();
 
         MainForm mainForm = new MainForm();
+
+        ProductManager productManager = new ProductManager(new ProductRepository());
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+        CategoryManager categoryManager = new CategoryManager(new CategoryRepository());
 
         private void ProductMain_Load(object sender, EventArgs e)
         {
@@ -38,19 +41,19 @@ namespace RA.WinFormUI
             comboProduct.DisplayMember = ComboBoxMember.ProductName;
             comboProduct.ValueMember = ComboBoxMember.ID;
 
-            comboProduct.DataSource = productRepository.GetAllComboBox();
+            comboProduct.DataSource = productManager.GetAllComboBox();
         }
         private void ComboCategoryList()
         {
             comboCategory.DisplayMember = ComboBoxMember.CategoryName;
             comboCategory.ValueMember = ComboBoxMember.ID;
 
-            comboCategory.DataSource = categoryRepository.GetAllComboBox();
+            comboCategory.DataSource = categoryManager.GetAllComboBox();
         }
 
         private void comboProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            productRepository.GetById((int)comboProduct.SelectedValue);
+            productManager.GetById((int)comboProduct.SelectedValue);
         }
 
         private void silToolStripMenuItem_Click(object sender, EventArgs e)
@@ -72,9 +75,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtProductName.Text) || !string.IsNullOrEmpty(txtUnitPrice.Text) || (int)comboCategory.SelectedValue > 0)
             {
-                if (productRepository.GetByName(txtProductName.Text) == null)
+                if (productManager.GetByName(txtProductName.Text) == null)
                 {
-                    productRepository.Add(new Entities.Entity.Product
+                    productManager.Add(new Entities.Entity.Product
                     {
                         ProductName = txtProductName.Text,
                         CategoryID = (int)comboCategory.SelectedValue,
@@ -105,12 +108,12 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getProduct = productRepository.GetById((int)comboProduct.SelectedValue);
+            var getProduct = productManager.GetById((int)comboProduct.SelectedValue);
             if (getProduct != null)
             {
                 if (!string.IsNullOrEmpty(txtProductName.Text) || !string.IsNullOrEmpty(txtUnitPrice.Text) || (int)comboCategory.SelectedValue > 0)
                 {
-                    if (getProduct.ProductName == txtProductName.Text || productRepository.GetByName(txtProductName.Text) == null)
+                    if (getProduct.ProductName == txtProductName.Text || productManager.GetByName(txtProductName.Text) == null)
                     {
                         getProduct.ProductName = txtProductName.Text;
                         getProduct.CategoryID = (int)comboCategory.SelectedValue;
@@ -119,7 +122,7 @@ namespace RA.WinFormUI
                         getProduct.IsActive = checkStatu.Checked;
                         getProduct.UpdatedDate = DateTime.Now;
 
-                        productRepository.Update(getProduct);
+                        productManager.Update(getProduct);
                         ComboProductList();
                         GetList();
 
@@ -142,10 +145,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getProduct = productRepository.GetById((int)comboProduct.SelectedValue).ID;
+            var getProduct = productManager.GetById((int)comboProduct.SelectedValue);
             if (getProduct != null)
             {
-                productRepository.Delete(getProduct);
+                productManager.Delete(getProduct);
                 ComboProductList();
                 GetList();
             }
@@ -156,7 +159,7 @@ namespace RA.WinFormUI
         }
         private void GetList()
         {
-            var getProduct = productRepository.GetAll();
+            var getProduct = productManager.GetAll();
             if (getProduct != null)
             {
                 dataGridView1.DataSource = null;
@@ -164,7 +167,7 @@ namespace RA.WinFormUI
 
                 foreach (var item in getProduct)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryRepository.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, Math.Round(item.UnitPrice,2), item.IsActive, item.CreatedDate, item.UpdatedDate, appUserRepository.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryManager.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, Math.Round(item.UnitPrice,2), item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
                 }
             }
         }

@@ -1,8 +1,8 @@
-﻿using RA.Entities.Abstract;
+﻿using RA.Entities.Interfaces;
 
 namespace RA.Entities.Entity
 {
-    public class OrderDetail : EntityAbstract
+    public class OrderDetail : BaseEntity
     {
         public int OrderID { get; set; }
         public int ProductID { get; set; }

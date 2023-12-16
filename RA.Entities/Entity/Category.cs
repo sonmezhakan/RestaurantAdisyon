@@ -1,8 +1,6 @@
-﻿using RA.Entities.Abstract;
-
-namespace RA.Entities.Entity
+﻿namespace RA.Entities.Entity
 {
-    public class Category : ChampaingAbstract
+    public class Category : ChampaingEntity
     {
         public string CategoryName { get; set; }
         public string? Desription { get; set; }

@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,12 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        OrderDetailManager detailManager = new OrderDetailManager();
-        ProductManager productManager = new ProductManager();
-        AppUserManager appUserManager = new AppUserManager();
 
         public static int orderID = 0;
+
+        OrderDetailManager orderDetailManager = new OrderDetailManager(new OrderDetailRepository());
+        ProductManager productManager = new ProductManager(new ProductRepository());
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
 
         private void OrderDetailForm_Load(object sender, EventArgs e)
         {
@@ -34,12 +37,12 @@ namespace RA.WinFormUI
         {
             if(orderID != null || orderID > 0)
             {
-                OrderDetailList(detailManager.GetByOrderIdList(orderID));
+                OrderDetailList(orderDetailManager.GetByOrderIdList(orderID));
                 orderID = 0;
             }
             else
             {
-                OrderDetailList(detailManager.GetAll());
+                OrderDetailList(orderDetailManager.GetAll());
                 orderID = 0;
             }
         }

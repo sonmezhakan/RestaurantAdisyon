@@ -4,9 +4,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class TableConfiguration : IEntityTypeConfiguration<Table>
+    public class TableConfiguration : BaseConfiguration<Table>
     {
-        public void Configure(EntityTypeBuilder<Table> builder)
+        public override void Configure(EntityTypeBuilder<Table> builder)
         {
 
             builder.Property(x => x.TableName).HasMaxLength(64).IsRequired();

@@ -4,9 +4,9 @@ using RA.Entities.Entity;
 
 namespace RA.DataAccess.Configuration
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class ProductConfiguration : BaseConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public override void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.Property(x => x.ProductName).HasMaxLength(250).IsRequired();
             builder.Property(x => x.UnitPrice).HasColumnType("money").IsRequired();

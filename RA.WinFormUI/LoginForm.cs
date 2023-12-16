@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using RA.WinFormUI.Properties;
 using System;
@@ -20,7 +22,8 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        AppUserManager appUserManager = new AppUserManager();
+
+        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
 
         private void checkBeniHatirla_CheckedChanged(object sender, EventArgs e)
         {

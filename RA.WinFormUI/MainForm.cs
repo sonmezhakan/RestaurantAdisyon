@@ -1,5 +1,7 @@
-﻿using RA.Business.Concrete;
-using RA.Business.Constants;
+﻿using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,14 +21,14 @@ namespace RA.WinFormUI
         {
             InitializeComponent();
         }
-        ProductManager productRepository = new ProductManager();
-        TableManager tableRepository = new TableManager();
-        OrderManager orderRepository = new OrderManager();
-        OrderDetailManager orderDetailRepository = new OrderDetailManager();
-
         public static int userId;
 
         int tableId = 0;
+
+        ProductManager productManager = new ProductManager(new ProductRepository());
+        TableManager tableManager = new TableManager(new TableRepository());
+        OrderManager orderManager = new OrderManager(new OrderRepository());
+        OrderDetailManager orderDetailManager = new OrderDetailManager(new OrderDetailRepository());
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -41,7 +43,7 @@ namespace RA.WinFormUI
             int height = 75;
             int locX = 15;
             int locY = 19;
-            var getProduct = productRepository.GetAll();
+            var getProduct = productManager.GetAll();
             Button[] buttonArray = new Button[getProduct.Count()];
 
             for (int i = 1; i <= getProduct.Count(); i++)
@@ -81,12 +83,12 @@ namespace RA.WinFormUI
         {
             Button button = sender as Button;
 
-            if (tableRepository.GetById(tableId) != null)
+            if (tableManager.GetById(tableId) != null)
             {
-                Order getTable = orderRepository.GetByTableId(tableId, true);
+                Order getTable = orderManager.GetByTableId(tableId, true);
                 if (getTable != null)
                 {
-                    List<OrderDetail> orderDetail = orderDetailRepository.GetByOrderIdList(getTable.ID);
+                    List<OrderDetail> orderDetail = orderDetailManager.GetByOrderIdList(getTable.ID);
                     var getOrderDetail = orderDetail.FirstOrDefault(x => x.ProductID == int.Parse(button.Name));
                     if (getOrderDetail != null)
                     {
@@ -94,9 +96,9 @@ namespace RA.WinFormUI
                     }
                     else
                     {
-                        OrderDetailAdd(getTable, productRepository.GetById(int.Parse(button.Name)));
+                        OrderDetailAdd(getTable, productManager.GetById(int.Parse(button.Name)));
                     }
-                    ProductStockRemoveUpdate(productRepository.GetById(int.Parse(button.Name)), 1);
+                    ProductStockRemoveUpdate(productManager.GetById(int.Parse(button.Name)), 1);
                     OrderList(tableId);
                     ProductList();
                 }
@@ -115,7 +117,7 @@ namespace RA.WinFormUI
         }
         private void OrderAdd()
         {
-            orderRepository.Add(new Order
+            orderManager.Add(new Order
             {
                 TableId = tableId,
                 OrderDate = DateTime.Now,
@@ -128,7 +130,7 @@ namespace RA.WinFormUI
 
         private void OrderDetailAdd(Order order, Product product)
         {
-            orderDetailRepository.Add(new OrderDetail
+            orderDetailManager.Add(new OrderDetail
             {
                 OrderID = order.ID,
                 ProductID = product.ID,
@@ -144,7 +146,7 @@ namespace RA.WinFormUI
         {
             orderDetail.Quantity += 1;
             orderDetail.UpdatedDate = DateTime.Now;
-            orderDetailRepository.Update(orderDetail);
+            orderDetailManager.Update(orderDetail);
         }
 
         private void TableList()
@@ -154,7 +156,7 @@ namespace RA.WinFormUI
             int locX = 11;
             int locY = 19;
 
-            var getTable = tableRepository.GetAll();
+            var getTable = tableManager.GetAll();
             Button[] buttonTableArray = new Button[getTable.Count()];
 
             for (int i = 1; i <= getTable.Count(); i++)
@@ -200,17 +202,17 @@ namespace RA.WinFormUI
 
         private void OrderList(int tableId)
         {
-            var resultOrder = orderRepository.GetByTableId(tableId, true);
+            var resultOrder = orderManager.GetByTableId(tableId, true);
             decimal totalPrice = 0;
-            if (resultOrder != null && orderDetailRepository.GetByOrderIdList(resultOrder.ID) != null)
+            if (resultOrder != null && orderDetailManager.GetByOrderIdList(resultOrder.ID) != null)
             {
                 totalPrice = 0;
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
 
-                foreach (var item in orderDetailRepository.GetByOrderIdList(resultOrder.ID))
+                foreach (var item in orderDetailManager.GetByOrderIdList(resultOrder.ID))
                 {
-                    dataGridView1.Rows.Add(item.OrderID, productRepository.GetById(item.ProductID).ProductName, item.Quantity, Math.Round(item.UnitPrice, 2));
+                    dataGridView1.Rows.Add(item.OrderID, productManager.GetById(item.ProductID).ProductName, item.Quantity, Math.Round(item.UnitPrice, 2));
                     totalPrice += Math.Round(item.Quantity * item.UnitPrice, 2);
                 }
                 lblTotalPrice.Text = Math.Round(totalPrice, 2).ToString();
@@ -236,20 +238,20 @@ namespace RA.WinFormUI
         private void ProductStockRemoveUpdate(Product product, int quantity)
         {
             product.UnitsInStock -= quantity;
-            productRepository.Update(product);
+            productManager.Update(product);
         }
         private void ProductStockAddUpdate(Product product, int quantity)
         {
             product.UnitsInStock += quantity;
-            productRepository.Update(product);
+            productManager.Update(product);
         }
 
         private void silToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var getOrderDetail = orderDetailRepository.GetByOrderIdList((int)dataGridView1.SelectedCells[0].Value);
-            var getProduct = productRepository.GetByName(dataGridView1.SelectedCells[1].Value.ToString());
+            var getOrderDetail = orderDetailManager.GetByOrderIdList((int)dataGridView1.SelectedCells[0].Value);
+            var getProduct = productManager.GetByName(dataGridView1.SelectedCells[1].Value.ToString());
 
-            orderDetailRepository.Delete(orderDetailRepository.GetByOrderAndProductId((int)dataGridView1.SelectedCells[0].Value, getProduct.ID).ID);
+            orderDetailManager.Delete(orderDetailManager.GetByOrderAndProductId((int)dataGridView1.SelectedCells[0].Value, getProduct.ID));
 
             ProductStockAddUpdate(getProduct, int.Parse(dataGridView1.SelectedCells[2].Value.ToString()));
             OrderList(tableId);
@@ -285,7 +287,7 @@ namespace RA.WinFormUI
 
             PaymentForm paymentForm = new PaymentForm();
             PaymentForm.totalPrice = Math.Round(decimal.Parse(lblTotalPrice.Text), 2);
-            PaymentForm.getOrder = orderRepository.GetByTableId(tableId, true);
+            PaymentForm.getOrder = orderManager.GetByTableId(tableId, true);
             paymentForm.ShowDialog();
         }
 

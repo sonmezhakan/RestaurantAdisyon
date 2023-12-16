@@ -1,4 +1,6 @@
-﻿using RA.Business.Concrete;
+﻿using RA.Business.ManagerService.Abstracts;
+using RA.Business.ManagerService.Concretes;
+using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,10 +21,13 @@ namespace RA.WinFormUI
             InitializeComponent();
         }
 
-        OrderManager orderManager = new OrderManager();
+        public static decimal totalPrice = 0;
+
+        OrderManager orderManager = new OrderManager(new OrderRepository());
+
         public static Order getOrder = null;
 
-        public static decimal totalPrice = 0;
+
         private void PaymentForm_Load(object sender, EventArgs e)
         {
             lblTotalPrice.Text = totalPrice.ToString();
