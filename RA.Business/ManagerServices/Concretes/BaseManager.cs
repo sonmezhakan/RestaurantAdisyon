@@ -21,6 +21,7 @@ namespace RA.Business.ManagerService.Concretes
 
         public void Add(T entity)
         {
+            entity.CreatedDate = DateTime.Now;
             _repository.Add(entity);
         }
 
@@ -46,6 +47,7 @@ namespace RA.Business.ManagerService.Concretes
 
         public void Update(T entity)
         {
+            entity.UpdatedDate = DateTime.Now;
             _repository.Update(entity);
         }
     }

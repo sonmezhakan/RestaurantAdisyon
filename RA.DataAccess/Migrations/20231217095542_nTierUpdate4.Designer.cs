@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RA.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using RA.DataAccess.Concrete;
 namespace RA.DataAccess.Migrations
 {
     [DbContext(typeof(RestaurantAdisyonContext))]
-    partial class RestaurantAdisyonContextModelSnapshot : ModelSnapshot
+    [Migration("20231217095542_nTierUpdate4")]
+    partial class nTierUpdate4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -89,6 +93,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -137,6 +142,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("char(11)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -169,6 +175,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -213,6 +220,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("money");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -259,6 +267,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -300,6 +309,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -350,6 +360,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -386,6 +397,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");

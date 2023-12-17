@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             panelLeft = new Panel();
-            textBox1 = new TextBox();
-            comboBox1 = new ComboBox();
+            txtQuantity = new TextBox();
+            comboSupplier = new ComboBox();
             label4 = new Label();
             label3 = new Label();
             lblID = new Label();
@@ -39,8 +39,8 @@
             bttnDelete = new Button();
             bttnUpdate = new Button();
             bttnAdd = new Button();
-            txtCategoryName = new TextBox();
-            comboCategory = new ComboBox();
+            txtUnitPrice = new TextBox();
+            comboProduct = new ComboBox();
             label2 = new Label();
             label1 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -57,41 +57,41 @@
             // 
             // panelLeft
             // 
-            panelLeft.Controls.Add(textBox1);
-            panelLeft.Controls.Add(comboBox1);
+            panelLeft.Controls.Add(txtQuantity);
+            panelLeft.Controls.Add(comboSupplier);
             panelLeft.Controls.Add(label4);
             panelLeft.Controls.Add(label3);
             panelLeft.Controls.Add(lblID);
             panelLeft.Controls.Add(panelLeftBottom);
-            panelLeft.Controls.Add(txtCategoryName);
-            panelLeft.Controls.Add(comboCategory);
+            panelLeft.Controls.Add(txtUnitPrice);
+            panelLeft.Controls.Add(comboProduct);
             panelLeft.Controls.Add(label2);
             panelLeft.Controls.Add(label1);
             panelLeft.Dock = DockStyle.Left;
             panelLeft.Location = new Point(0, 0);
             panelLeft.Name = "panelLeft";
-            panelLeft.Size = new Size(300, 681);
+            panelLeft.Size = new Size(369, 681);
             panelLeft.TabIndex = 4;
             // 
-            // textBox1
+            // txtQuantity
             // 
-            textBox1.Location = new Point(79, 114);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(167, 23);
-            textBox1.TabIndex = 19;
+            txtQuantity.Location = new Point(86, 114);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(250, 23);
+            txtQuantity.TabIndex = 19;
             // 
-            // comboBox1
+            // comboSupplier
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(79, 56);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(167, 23);
-            comboBox1.TabIndex = 18;
+            comboSupplier.FormattingEnabled = true;
+            comboSupplier.Location = new Point(86, 56);
+            comboSupplier.Name = "comboSupplier";
+            comboSupplier.Size = new Size(250, 23);
+            comboSupplier.TabIndex = 18;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 118);
+            label4.Location = new Point(33, 118);
             label4.Name = "label4";
             label4.Size = new Size(47, 15);
             label4.TabIndex = 17;
@@ -100,7 +100,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(35, 88);
+            label3.Location = new Point(42, 88);
             label3.Name = "label3";
             label3.Size = new Size(38, 15);
             label3.TabIndex = 16;
@@ -108,12 +108,12 @@
             // 
             // lblID
             // 
-            lblID.AutoSize = true;
-            lblID.Location = new Point(150, 9);
+            lblID.Location = new Point(86, 9);
             lblID.Name = "lblID";
-            lblID.Size = new Size(13, 15);
+            lblID.Size = new Size(250, 15);
             lblID.TabIndex = 15;
             lblID.Text = "0";
+            lblID.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelLeftBottom
             // 
@@ -123,7 +123,7 @@
             panelLeftBottom.Dock = DockStyle.Bottom;
             panelLeftBottom.Location = new Point(0, 628);
             panelLeftBottom.Name = "panelLeftBottom";
-            panelLeftBottom.Size = new Size(300, 53);
+            panelLeftBottom.Size = new Size(369, 53);
             panelLeftBottom.TabIndex = 13;
             // 
             // bttnDelete
@@ -136,6 +136,7 @@
             bttnDelete.TabIndex = 13;
             bttnDelete.Text = "Sil";
             bttnDelete.UseVisualStyleBackColor = true;
+            bttnDelete.Click += bttnDelete_Click;
             // 
             // bttnUpdate
             // 
@@ -147,6 +148,7 @@
             bttnUpdate.TabIndex = 12;
             bttnUpdate.Text = "Güncelle";
             bttnUpdate.UseVisualStyleBackColor = true;
+            bttnUpdate.Click += bttnUpdate_Click;
             // 
             // bttnAdd
             // 
@@ -158,26 +160,27 @@
             bttnAdd.TabIndex = 10;
             bttnAdd.Text = "Ekle";
             bttnAdd.UseVisualStyleBackColor = true;
+            bttnAdd.Click += bttnAdd_Click;
             // 
-            // txtCategoryName
+            // txtUnitPrice
             // 
-            txtCategoryName.Location = new Point(79, 85);
-            txtCategoryName.Name = "txtCategoryName";
-            txtCategoryName.Size = new Size(167, 23);
-            txtCategoryName.TabIndex = 6;
+            txtUnitPrice.Location = new Point(86, 85);
+            txtUnitPrice.Name = "txtUnitPrice";
+            txtUnitPrice.Size = new Size(250, 23);
+            txtUnitPrice.TabIndex = 6;
             // 
-            // comboCategory
+            // comboProduct
             // 
-            comboCategory.FormattingEnabled = true;
-            comboCategory.Location = new Point(79, 27);
-            comboCategory.Name = "comboCategory";
-            comboCategory.Size = new Size(167, 23);
-            comboCategory.TabIndex = 5;
+            comboProduct.FormattingEnabled = true;
+            comboProduct.Location = new Point(86, 27);
+            comboProduct.Name = "comboProduct";
+            comboProduct.Size = new Size(250, 23);
+            comboProduct.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 59);
+            label2.Location = new Point(16, 59);
             label2.Name = "label2";
             label2.Size = new Size(64, 15);
             label2.TabIndex = 1;
@@ -186,7 +189,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(13, 30);
+            label1.Location = new Point(20, 30);
             label1.Name = "label1";
             label1.Size = new Size(60, 15);
             label1.TabIndex = 0;
@@ -203,20 +206,22 @@
             silToolStripMenuItem.Name = "silToolStripMenuItem";
             silToolStripMenuItem.Size = new Size(105, 22);
             silToolStripMenuItem.Text = "Sil";
+            silToolStripMenuItem.Click += silToolStripMenuItem_Click;
             // 
             // yenileToolStripMenuItem
             // 
             yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
             yenileToolStripMenuItem.Size = new Size(105, 22);
             yenileToolStripMenuItem.Text = "Yenile";
+            yenileToolStripMenuItem.Click += yenileToolStripMenuItem_Click;
             // 
             // panelMid
             // 
             panelMid.Controls.Add(dataGridView1);
             panelMid.Dock = DockStyle.Fill;
-            panelMid.Location = new Point(300, 0);
+            panelMid.Location = new Point(369, 0);
             panelMid.Name = "panelMid";
-            panelMid.Size = new Size(964, 681);
+            panelMid.Size = new Size(895, 681);
             panelMid.TabIndex = 5;
             // 
             // dataGridView1
@@ -233,8 +238,9 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(964, 681);
+            dataGridView1.Size = new Size(895, 681);
             dataGridView1.TabIndex = 1;
+            dataGridView1.DoubleClick += dataGridView1_DoubleClick;
             // 
             // StockForm
             // 
@@ -264,16 +270,16 @@
         private Button bttnDelete;
         private Button bttnUpdate;
         private Button bttnAdd;
-        private TextBox txtCategoryName;
-        private ComboBox comboCategory;
+        private TextBox txtUnitPrice;
+        private ComboBox comboProduct;
         private Label label2;
         private Label label1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem silToolStripMenuItem;
         private ToolStripMenuItem yenileToolStripMenuItem;
         private Panel panelMid;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
+        private TextBox txtQuantity;
+        private ComboBox comboSupplier;
         private Label label4;
         private Label label3;
         private DataGridView dataGridView1;

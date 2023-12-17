@@ -17,7 +17,6 @@ namespace RA.Entities.Entity
         public  bool? IsActive { get; set; }
         public  DateTime CreatedDate { get; set; }
         public  DateTime? UpdatedDate { get; set; }
-        public  DateTime? DeletedDate { get; set; }
         public  int CreatedUserId { get; set; }
     }
 }

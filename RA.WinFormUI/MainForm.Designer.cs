@@ -52,9 +52,14 @@
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripButtonCategory = new ToolStripButton();
             toolStrip1 = new ToolStrip();
+            toolStripButtonStock = new ToolStripButton();
+            toolStripSeparator6 = new ToolStripSeparator();
+            toolStripButtonSupplier = new ToolStripButton();
+            toolStripSeparator5 = new ToolStripSeparator();
             panelTopLeft = new Panel();
             panelRight = new Panel();
             panelTop = new Panel();
+            bttnRefresh = new Button();
             contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panelLeft.SuspendLayout();
@@ -286,13 +291,51 @@
             // 
             // toolStrip1
             // 
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonCategory, toolStripSeparator1, toolStripButtonProduct, toolStripSeparator2, toolStripButtonUser, toolStripSeparator3, toolStripButtonEmployee, toolStripSeparator4, toolStripDropDownButtonOrder, toolStripButtonTable });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButtonStock, toolStripSeparator6, toolStripButtonCategory, toolStripSeparator1, toolStripButtonProduct, toolStripSeparator2, toolStripButtonSupplier, toolStripSeparator5, toolStripButtonUser, toolStripSeparator3, toolStripButtonEmployee, toolStripSeparator4, toolStripDropDownButtonOrder, toolStripButtonTable });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
             toolStrip1.Size = new Size(727, 92);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonStock
+            // 
+            toolStripButtonStock.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStripButtonStock.Image = Properties.Resources.tables;
+            toolStripButtonStock.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButtonStock.ImageTransparentColor = Color.Magenta;
+            toolStripButtonStock.Name = "toolStripButtonStock";
+            toolStripButtonStock.Size = new Size(68, 89);
+            toolStripButtonStock.Text = "Stok";
+            toolStripButtonStock.TextAlign = ContentAlignment.BottomCenter;
+            toolStripButtonStock.TextImageRelation = TextImageRelation.ImageAboveText;
+            toolStripButtonStock.Click += toolStripButtonStock_Click;
+            // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(6, 92);
+            // 
+            // toolStripButtonSupplier
+            // 
+            toolStripButtonSupplier.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStripButtonSupplier.Image = Properties.Resources.tables;
+            toolStripButtonSupplier.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButtonSupplier.ImageTransparentColor = Color.Magenta;
+            toolStripButtonSupplier.Name = "toolStripButtonSupplier";
+            toolStripButtonSupplier.Size = new Size(92, 89);
+            toolStripButtonSupplier.Text = "Tedarikçiler";
+            toolStripButtonSupplier.TextAlign = ContentAlignment.BottomCenter;
+            toolStripButtonSupplier.TextImageRelation = TextImageRelation.ImageAboveText;
+            toolStripButtonSupplier.Click += toolStripButtonSupplier_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(6, 92);
             // 
             // panelTopLeft
             // 
@@ -316,12 +359,25 @@
             // 
             // panelTop
             // 
+            panelTop.Controls.Add(bttnRefresh);
             panelTop.Controls.Add(panelTopLeft);
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
             panelTop.Size = new Size(1904, 100);
             panelTop.TabIndex = 5;
+            // 
+            // bttnRefresh
+            // 
+            bttnRefresh.Dock = DockStyle.Right;
+            bttnRefresh.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            bttnRefresh.Location = new Point(1801, 0);
+            bttnRefresh.Name = "bttnRefresh";
+            bttnRefresh.Size = new Size(103, 100);
+            bttnRefresh.TabIndex = 3;
+            bttnRefresh.Text = "Yenile";
+            bttnRefresh.UseVisualStyleBackColor = true;
+            bttnRefresh.Click += bttnRefresh_Click;
             // 
             // MainForm
             // 
@@ -377,5 +433,10 @@
         private Button bttnPayment;
         public Label label2;
         public Label lblTotalPrice;
+        private ToolStripButton toolStripButtonStock;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripButton toolStripButtonSupplier;
+        private ToolStripSeparator toolStripSeparator5;
+        private Button bttnRefresh;
     }
 }

@@ -17,23 +17,28 @@ namespace RA.Business.ManagerService.Concretes
         {
             _stockRepository = stockRepository;
         }
-        /*public void Update(Stock stock)
+
+        public Stock GetById(int id)
         {
-            if (_stockRepository.FirstOrDefaultBool(x=>x.ID == stock.ID))
-            {
-                _stockRepository.Update(stock);
-            }
+           return _stockRepository.FirstOrDefault(x => x.ID == id);
         }
-        public void Delete(int id)
-        {
-            var getStock = _stockRepository.FirstOrDefault(x => x.ID == id);
-            if (getStock != null)
-            {
-                _stockRepository.Delete(getStock);
-            }
-        }*/
+        /*public void Update(Stock stock)
+{
+   if (_stockRepository.FirstOrDefaultBool(x=>x.ID == stock.ID))
+   {
+       _stockRepository.Update(stock);
+   }
+}
+public void Delete(int id)
+{
+   var getStock = _stockRepository.FirstOrDefault(x => x.ID == id);
+   if (getStock != null)
+   {
+       _stockRepository.Delete(getStock);
+   }
+}*/
 
 
-        
+
     }
 }

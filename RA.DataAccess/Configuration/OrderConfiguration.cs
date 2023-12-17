@@ -10,7 +10,6 @@ namespace RA.DataAccess.Configuration
         {
             builder.Property(x => x.OrderDate).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.CreatedUserId).IsRequired();
             builder.Property(x => x.TableId).IsRequired();
 

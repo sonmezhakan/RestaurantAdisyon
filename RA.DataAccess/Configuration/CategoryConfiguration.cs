@@ -11,7 +11,6 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.CategoryName).HasMaxLength(64).IsRequired();
             builder.Property(x => x.Desription).HasMaxLength(250);
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.CreatedUserId).IsRequired();
             builder.Property(x => x.Champaing).HasColumnType("smallint");
 

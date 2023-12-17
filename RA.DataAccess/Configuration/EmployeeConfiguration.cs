@@ -16,7 +16,6 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.Adress).HasMaxLength(250).IsRequired();
             builder.Property(x => x.PhoneNumber).HasColumnType("char(11)").IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
         }
     }
 }

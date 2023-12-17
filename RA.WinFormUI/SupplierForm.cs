@@ -1,19 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RA.Business.Constants;
-using RA.Business.ManagerService.Abstracts;
+﻿using RA.Business.Constants;
 using RA.Business.ManagerService.Concretes;
-using RA.DataAccess.Concrete;
-using RA.DataAccess.Repositories.Abstracts;
 using RA.DataAccess.Repositories.Concretes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace RA.WinFormUI
 {
@@ -115,10 +103,14 @@ namespace RA.WinFormUI
                     {
                         CompanyName = txtCompanyName.Text,
                         ContactName = txtContactName.Text,
-                        PhoneNumber = char.Parse(txtPhoneNumber.Text),
+                        PhoneNumber = txtPhoneNumber.Text,
                         Adress = txtAdress.Text,
-                        CreatedUserId = MainForm.userId
+                        UpdatedDate = DateTime.Now,
+                        CreatedUserId = MainForm.userId,
+                        IsActive = checkStatu.Checked
                     });
+                    ComboSupplierList();
+                    SupplierList();
                 }
                 else
                 {
@@ -133,12 +125,51 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
+            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            if(getSupplier != null)
+            {
+                if (!string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtAdress.Text))
+                {
+                    if (getSupplier.CompanyName == txtCompanyName.Text || supplierManager.GetByName(txtCompanyName.Text) == null)
+                    {
+                        getSupplier.CompanyName = txtCompanyName.Text;
+                        getSupplier.ContactName = txtContactName.Text;
+                        getSupplier.PhoneNumber = txtPhoneNumber.Text;
+                        getSupplier.Adress = txtAdress.Text;
+                        getSupplier.IsActive = checkStatu.Checked;
+                        supplierManager.Update(getSupplier);
+                        ComboSupplierList();
+                        SupplierList();
+                    }
+                    else
+                    {
+                        MessageBox.Show(Messages.CategoryNameError);
+                    }
+            }
+                else
+                {
+                    MessageBox.Show(Messages.NotNull);
+                }
+            }
+            else
+            { MessageBox.Show(Messages.NotNull); }
 
+            
         }
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-
+            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            if(getSupplier != null)
+            {
+                supplierManager.Delete(getSupplier);
+                ComboSupplierList();
+                SupplierList();
+            }
+            else
+            {
+                MessageBox.Show(Messages.NotNull);
+            }
         }
     }
 }

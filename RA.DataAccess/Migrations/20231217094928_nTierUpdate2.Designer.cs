@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RA.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using RA.DataAccess.Concrete;
 namespace RA.DataAccess.Migrations
 {
     [DbContext(typeof(RestaurantAdisyonContext))]
-    partial class RestaurantAdisyonContextModelSnapshot : ModelSnapshot
+    [Migration("20231217094928_nTierUpdate2")]
+    partial class nTierUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
@@ -45,6 +51,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -81,6 +88,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Desription")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -89,6 +99,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -114,6 +125,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -137,6 +151,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("char(11)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -158,6 +173,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -169,6 +187,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -194,6 +213,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(18,2)");
 
@@ -213,6 +235,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("money");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -244,6 +267,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -259,6 +285,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -284,6 +311,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -300,6 +330,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -341,15 +372,19 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("char(11)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -373,6 +408,9 @@ namespace RA.DataAccess.Migrations
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -386,6 +424,7 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime?>("UpdatedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");

@@ -9,6 +9,6 @@
         public static string TableName = "TableName";
         public static string ProductName = "ProductName";
         public static string UserName = "UserName";
-        public static string SupplierName = "SupplierName";
+        public static string SupplierName = "CompanyName";
     }
 }

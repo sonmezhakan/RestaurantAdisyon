@@ -167,7 +167,7 @@ namespace RA.WinFormUI
 
                 foreach (var item in getProduct)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryManager.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, Math.Round(item.UnitPrice,2), item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.ProductName, categoryManager.GetById(item.CategoryID).CategoryName, item.UnitsInStock, item.Champaing, Math.Round(item.UnitPrice, 2), item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
@@ -187,6 +187,9 @@ namespace RA.WinFormUI
             dataGridView1.Columns[9].HeaderText = ColumnHeaders.CreatedUserId;
         }
 
-
+        private void yenileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetList();
+        }
     }
 }

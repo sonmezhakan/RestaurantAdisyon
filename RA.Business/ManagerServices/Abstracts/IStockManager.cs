@@ -9,6 +9,6 @@ namespace RA.Business.ManagerService.Abstracts
 {
     public interface IStockManager:IManager<Stock>
     {
-
+        Stock GetById(int id);
     }
 }

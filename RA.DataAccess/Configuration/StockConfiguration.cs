@@ -18,7 +18,6 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.UnitPrice).HasColumnType("money").IsRequired();
             builder.Property(x => x.UnitsInStock).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.CreatedUserId).IsRequired();
 
             builder.HasOne(x => x.CreatedUser).WithMany(x => x.Stocks).HasForeignKey(x => x.CreatedUserId).OnDelete(DeleteBehavior.Restrict);

@@ -12,7 +12,6 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.TableName).HasMaxLength(64).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(250);
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.CreatedUserId).IsRequired();
         }
     }

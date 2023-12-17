@@ -43,12 +43,13 @@ namespace RA.WinFormUI
             int height = 75;
             int locX = 15;
             int locY = 19;
+            int k = 0;
             var getProduct = productManager.GetAll();
             Button[] buttonArray = new Button[getProduct.Count()];
 
             for (int i = 1; i <= getProduct.Count(); i++)
             {
-                int k = i - 1;
+                k = i - 1;
                 buttonArray[k] = new Button();
                 buttonArray[k].Name = getProduct[k].ID.ToString();
                 buttonArray[k].Text = getProduct[k].ProductName + "\n" + Math.Round(getProduct[k].UnitPrice, 2) + " ₺";
@@ -101,6 +102,7 @@ namespace RA.WinFormUI
                     ProductStockRemoveUpdate(productManager.GetById(int.Parse(button.Name)), 1);
                     OrderList(tableId);
                     ProductList();
+                    bttnRefresh_Click(sender, e);
                 }
                 else
                 {
@@ -301,6 +303,26 @@ namespace RA.WinFormUI
         {
             OrderForm orderForm = new OrderForm();
             orderForm.Show();
+        }
+
+        private void toolStripButtonStock_Click(object sender, EventArgs e)
+        {
+            StockForm stockForm = new StockForm();
+            stockForm.Show();
+        }
+
+        private void toolStripButtonSupplier_Click(object sender, EventArgs e)
+        {
+            SupplierForm supplierForm = new SupplierForm();
+            supplierForm.Show();
+        }
+
+        private void bttnRefresh_Click(object sender, EventArgs e)
+        {
+            panelRight.Controls.Clear();
+            panelMid.Controls.Clear();
+            ProductList();
+            TableList();
         }
     }
 }

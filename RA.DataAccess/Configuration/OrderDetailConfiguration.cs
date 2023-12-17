@@ -11,7 +11,6 @@ namespace RA.DataAccess.Configuration
 
             builder.Property(x => x.ProductID).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.Quantity).HasColumnType("smallint").IsRequired();
             builder.Property(x => x.UnitPrice).HasColumnType("money").IsRequired();
             builder.Property(x => x.OrderID).IsRequired();

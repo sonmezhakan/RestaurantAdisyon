@@ -26,6 +26,7 @@ namespace RA.DataAccess.Repositories.Concretes
         {
             using (TContext context = new TContext())
             {
+                entity.CreatedDate = DateTime.Now;
                 context.Set<T>().Add(entity);
                 context.SaveChanges();
             }

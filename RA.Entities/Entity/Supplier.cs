@@ -11,7 +11,7 @@ namespace RA.Entities.Entity
     {
         public string CompanyName { get; set; }
         public string? ContactName { get; set; }
-        public char PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
         public AppUser CreatedUser { get; set; }

@@ -63,8 +63,9 @@
             // yenileToolStripMenuItem
             // 
             yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
-            yenileToolStripMenuItem.Size = new Size(105, 22);
+            yenileToolStripMenuItem.Size = new Size(180, 22);
             yenileToolStripMenuItem.Text = "Yenile";
+            yenileToolStripMenuItem.Click += yenileToolStripMenuItem_Click;
             // 
             // comboChampaing
             // 
@@ -136,12 +137,12 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { silToolStripMenuItem, yenileToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(106, 48);
+            contextMenuStrip1.Size = new Size(181, 70);
             // 
             // silToolStripMenuItem
             // 
             silToolStripMenuItem.Name = "silToolStripMenuItem";
-            silToolStripMenuItem.Size = new Size(105, 22);
+            silToolStripMenuItem.Size = new Size(180, 22);
             silToolStripMenuItem.Text = "Sil";
             silToolStripMenuItem.Click += silToolStripMenuItem_Click;
             // 

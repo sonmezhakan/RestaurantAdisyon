@@ -13,7 +13,6 @@ namespace RA.DataAccess.Configuration
             builder.Property(x => x.UnitsInStock).IsRequired();
             builder.Property(x => x.CreatedUserId).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.UpdatedDate).IsRequired();
             builder.Property(x => x.CategoryID).IsRequired();
             builder.Property(x => x.Champaing).HasColumnType("smallint");
 
