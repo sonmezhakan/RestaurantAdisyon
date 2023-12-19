@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\RA.AspNetCoreMVC.props" />
+</Project>

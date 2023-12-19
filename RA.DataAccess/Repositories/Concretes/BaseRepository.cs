@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace RA.DataAccess.Repositories.Concretes
 {
-    public class BaseRepository<T,TContext> : IRepository<T> where T : class, IEntity
-        where TContext :  DbContext, new()
+    public class BaseRepository<T, TContext> : IRepository<T> where T : class, IEntity
+        where TContext : DbContext, new()
     {
-        /*private readonly RestaurantAdisyonContext _context;
+
+       /* private readonly RestaurantAdisyonContext _context;
 
         public BaseRepository(RestaurantAdisyonContext context)
         {
@@ -34,7 +35,7 @@ namespace RA.DataAccess.Repositories.Concretes
 
         public void Delete(T entity)
         {
-            using(TContext context = new TContext())
+            using (TContext context = new TContext())
             {
                 context.Set<T>().Remove(entity);
                 context.SaveChanges();
@@ -67,7 +68,7 @@ namespace RA.DataAccess.Repositories.Concretes
 
         public void Update(T entity)
         {
-            using(TContext context = new TContext())
+            using (TContext context = new TContext())
             {
                 entity.UpdatedDate = DateTime.Now;
                 T original = context.Set<T>().Find(entity.ID);

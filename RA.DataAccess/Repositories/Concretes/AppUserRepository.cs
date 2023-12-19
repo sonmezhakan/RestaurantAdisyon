@@ -13,6 +13,7 @@ namespace RA.DataAccess.Repositories.Concretes
     public class AppUserRepository : BaseRepository<AppUser, RestaurantAdisyonContext>, IAppUserRepository
     {
 
+      
     }
 
 }
