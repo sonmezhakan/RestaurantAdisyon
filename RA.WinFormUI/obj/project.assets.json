@@ -3073,11 +3073,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.WinFormUI\\RA.WinFormUI.csproj",
+      "projectUniqueName": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.WinFormUI\\RA.WinFormUI.csproj",
       "projectName": "RA.WinFormUI",
-      "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.WinFormUI\\RA.WinFormUI.csproj",
+      "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.WinFormUI\\RA.WinFormUI.csproj",
       "packagesPath": "C:\\Users\\hakan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.WinFormUI\\obj\\",
+      "outputPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.WinFormUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3099,11 +3099,11 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\RA.Business.csproj": {
-              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\RA.Business.csproj"
+            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\RA.Business.csproj": {
+              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\RA.Business.csproj"
             },
-            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.DataAccess\\RA.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.DataAccess\\RA.DataAccess.csproj"
+            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.DataAccess\\RA.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.DataAccess\\RA.DataAccess.csproj"
             }
           }
         }

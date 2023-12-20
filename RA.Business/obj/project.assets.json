@@ -2786,11 +2786,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\RA.Business.csproj",
+      "projectUniqueName": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\RA.Business.csproj",
       "projectName": "RA.Business",
-      "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\RA.Business.csproj",
+      "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\RA.Business.csproj",
       "packagesPath": "C:\\Users\\hakan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\obj\\",
+      "outputPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2812,8 +2812,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.DataAccess\\RA.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.DataAccess\\RA.DataAccess.csproj"
+            "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.DataAccess\\RA.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.DataAccess\\RA.DataAccess.csproj"
             }
           }
         }

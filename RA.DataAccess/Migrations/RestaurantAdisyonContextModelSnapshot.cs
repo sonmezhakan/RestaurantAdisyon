@@ -33,9 +33,6 @@ namespace RA.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -53,8 +50,6 @@ namespace RA.DataAccess.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("EmployeeID");
 
                     b.ToTable("Users");
                 });
@@ -101,10 +96,7 @@ namespace RA.DataAccess.Migrations
             modelBuilder.Entity("RA.Entities.Entity.Employee", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Adress")
                         .IsRequired()
@@ -393,17 +385,6 @@ namespace RA.DataAccess.Migrations
                     b.ToTable("Tables");
                 });
 
-            modelBuilder.Entity("RA.Entities.Entity.AppUser", b =>
-                {
-                    b.HasOne("RA.Entities.Entity.Employee", "Employee")
-                        .WithMany("User")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("RA.Entities.Entity.Category", b =>
                 {
                     b.HasOne("RA.Entities.Entity.AppUser", "CreatedUser")
@@ -413,6 +394,17 @@ namespace RA.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("CreatedUser");
+                });
+
+            modelBuilder.Entity("RA.Entities.Entity.Employee", b =>
+                {
+                    b.HasOne("RA.Entities.Entity.AppUser", "User")
+                        .WithOne("Employee")
+                        .HasForeignKey("RA.Entities.Entity.Employee", "ID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RA.Entities.Entity.Order", b =>
@@ -514,6 +506,9 @@ namespace RA.DataAccess.Migrations
                 {
                     b.Navigation("Categories");
 
+                    b.Navigation("Employee")
+                        .IsRequired();
+
                     b.Navigation("Orders");
 
                     b.Navigation("Products");
@@ -526,11 +521,6 @@ namespace RA.DataAccess.Migrations
             modelBuilder.Entity("RA.Entities.Entity.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("RA.Entities.Entity.Employee", b =>
-                {
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RA.Entities.Entity.Order", b =>

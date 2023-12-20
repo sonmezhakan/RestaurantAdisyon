@@ -74,7 +74,7 @@ namespace RA.WinFormUI
             {
                 foreach (var item in getUserList)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.UserName, employeeManager.GetById(item.EmployeeID).FirstName, item.IsActive, item.CreatedDate, item.UpdatedDate);
+                    dataGridView1.Rows.Add(item.ID, item.UserName, employeeManager.GetById(item.ID).FirstName, item.IsActive, item.CreatedDate, item.UpdatedDate);
                 }
             }
             
@@ -105,8 +105,8 @@ namespace RA.WinFormUI
             {
                 lblID.Text = getUser.ID.ToString();
                 txtUserName.Text = getUser.UserName;
-                comboEmployeeFirstName.SelectedValue = getUser.EmployeeID;
-                comboEmployeeLastName.SelectedValue = getUser.EmployeeID;
+                comboEmployeeFirstName.SelectedValue = getUser.ID;
+                comboEmployeeLastName.SelectedValue = getUser.ID;
                 checkStatu.Checked = (bool)getUser.IsActive;
             }
         }
@@ -135,7 +135,6 @@ namespace RA.WinFormUI
                         {
                             UserName = txtUserName.Text,
                             Password = txtPassword.Text,
-                            EmployeeID = (int)comboEmployeeLastName.SelectedValue,
                             IsActive = checkStatu.Checked,
                             CreatedDate = DateTime.Now,
                             UpdatedDate = DateTime.Now
@@ -173,11 +172,11 @@ namespace RA.WinFormUI
                     getUser.Password = txtPassword.Text;
                 }
 
-                if(getUser.EmployeeID != (int)comboEmployeeLastName.SelectedValue)
+                if(getUser.ID != (int)comboEmployeeLastName.SelectedValue)
                 {
                     if(appUserManager.GetByEmployeeId((int)comboEmployeeLastName.SelectedValue) == false)
                     {
-                        getUser.EmployeeID = (int)comboEmployeeLastName.SelectedValue;
+                        getUser.ID = (int)comboEmployeeLastName.SelectedValue;
                     }
                     else
                     {

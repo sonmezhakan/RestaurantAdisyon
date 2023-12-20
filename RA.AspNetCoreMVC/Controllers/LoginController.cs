@@ -25,7 +25,7 @@ namespace RA.AspNetCoreMVC.Controllers
                if(_appUserManager.GetByLogin(loginVM.UserName,loginVM.Password))
                 {
                     TempData["Success"] = "Giriş Başarılı! Anasayfaya Yönlendiriliyorsunuz...";
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index","Yonetim");
                 }
                else
                 {

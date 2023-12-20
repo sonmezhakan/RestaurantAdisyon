@@ -41,7 +41,7 @@ namespace RA.Business.ManagerService.Concretes
         }
         public bool GetByEmployeeId(int id)
         {
-            return _appUserRepository.FirstOrDefaultBool(x => x.EmployeeID == id);
+            return _appUserRepository.FirstOrDefaultBool(x => x.ID == id);
         }
 
         public bool GetByLogin(string userName, string password)

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8Mt6KEq3K74SXTH7ICXiUvuC7tHx8IA8cP4xey7KXf8+Uih2fknCS4oIjADJtmX3Rq6obpI8NBWMulaHLolheQ==",
+  "dgSpecHash": "/Nujrjdy2PRQD6rxVz3SRIMDde284ZKJ/eZAfBSjpHQPXfW8ba9l97vuempTR3vEFUC5AIPEiTdkKdYjWgI5ww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.DataAccess\\RA.DataAccess.csproj",
+  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.DataAccess\\RA.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hakan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\hakan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

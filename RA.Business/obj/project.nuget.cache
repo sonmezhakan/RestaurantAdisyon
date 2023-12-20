@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tTPVUyWWGaRM5ydiS/1pmJIOR9cfj/6ilQs6z1ClEnh4dqdf4ZuJswXmSX0ZTfU7f0aSRuWff/CUxDuim3hghQ==",
+  "dgSpecHash": "39haFvRaX4b0AhqrBkqDsF0b34qhSQHDCL6xQOi1GJR+cmj7V6PV3NrvWRSdobaaL4CmiFiTSV3YwVgFRRK0Bw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.Business\\RA.Business.csproj",
+  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.Business\\RA.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hakan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\hakan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

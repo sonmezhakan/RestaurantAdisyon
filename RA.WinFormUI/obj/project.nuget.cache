@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d0wB46KX3MUtaTbgW0Z7hrUSCSj+BEumTxHIoUgy1FL5lQ6Zl6P3OqQKDSl3Uta7FBmbze6px6JK6iu6Rn8jDw==",
+  "dgSpecHash": "o0mtFg85V8/wl0R1at24lBaDmW3HAniqDrlyn4KwPN5+lzyCgJh0X4qUri13kWhDJYHQpLsOR3g8PPIG0+TA7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v3\\RestaurantAdisyon\\RA.WinFormUI\\RA.WinFormUI.csproj",
+  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.WinFormUI\\RA.WinFormUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hakan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\hakan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

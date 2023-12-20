@@ -10,6 +10,6 @@ namespace RA.Entities.Entity
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-        public virtual List<AppUser> User { get; set; }
+        public virtual AppUser User { get; set; }
     }
 }

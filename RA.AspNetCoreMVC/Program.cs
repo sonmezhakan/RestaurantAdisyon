@@ -37,11 +37,31 @@ namespace RA.AspNetCoreMVC
             var app = builder.Build();
             app.UseRouting();
             app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                      name: "areas",
+                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+                });
+
+
+
+
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{Controller=Home}/{Action=Index}/{id?}"
+                    );
+
+
+
             });
-            
+
 
             app.Run();
         }

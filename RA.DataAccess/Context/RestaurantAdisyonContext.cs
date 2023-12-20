@@ -47,7 +47,7 @@ namespace RA.DataAccess.Concrete
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=DESKTOP-S8RDFAU;database=RestaurantAdisyonDB;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("server=DESKTOP-S8RDFAU;database=RADB;Trusted_Connection=True;TrustServerCertificate=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
