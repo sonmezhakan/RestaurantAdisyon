@@ -5,41 +5,41 @@ using RA.Entities.Entity;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class EmployeeManager : BaseManager<Employee>,IEmployeeManager
+    public class EmployeeManager : IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeDal _employeeDal;
 
-        public EmployeeManager(IEmployeeRepository employeeRepository):base(employeeRepository)
+        public EmployeeManager(IEmployeeDal employeeDal)
         {
-            _employeeRepository = employeeRepository;
+            _employeeDal = employeeDal;
         }
 
-       /* public void Add(Employee employee)
+        public void Add(Employee employee)
         {
-            if (!_employeeRepository.FirstOrDefaultBool(x=>x.Email == employee.Email))
+            if (!_employeeDal.FirstOrDefaultBool(x=>x.Email == employee.Email))
             {
-                _employeeRepository.Add(employee);
+                _employeeDal.Add(employee);
             }
         }
         public void Update(Employee employee)
         {
-            if (_employeeRepository.FirstOrDefaultBool(x=>x.ID == employee.ID))
+            if (_employeeDal.FirstOrDefaultBool(x=>x.ID == employee.ID))
             {
-                _employeeRepository.Update(employee);
+                _employeeDal.Update(employee);
             }
         }
         public void Delete(int id)
         {
-            var getEmployee = _employeeRepository.FirstOrDefault(x=>x.ID == id);
+            var getEmployee = _employeeDal.FirstOrDefault(x=>x.ID == id);
             if (getEmployee != null)
             {
-                _employeeRepository.Delete(getEmployee);
+                _employeeDal.Delete(getEmployee);
             }
-        }*/
+        }
 
         public List<Employee> GetByAllComboBox()
         {
-            return _employeeRepository.GetAll().Select(x => new Employee
+            return _employeeDal.GetAll().Select(x => new Employee
             {
                 ID = x.ID,
                 FirstName = x.FirstName
@@ -48,17 +48,17 @@ namespace RA.Business.ManagerService.Concretes
 
         public bool GetByEmail(string email)
         {
-            return _employeeRepository.FirstOrDefaultBool(x => x.Email == email);
+            return _employeeDal.FirstOrDefaultBool(x => x.Email == email);
         }
 
         public Employee GetByFirstAndLastName(string firstName, string lastName)
         {
-            return _employeeRepository.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName);
+            return _employeeDal.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName);
         }
 
         public List<Employee> GetByFirstName(string firstName)
         {
-            return _employeeRepository.GetAll().Select(x => new Employee
+            return _employeeDal.GetAll().Select(x => new Employee
             {
                 ID = x.ID,
                 FirstName = x.FirstName,
@@ -68,7 +68,12 @@ namespace RA.Business.ManagerService.Concretes
 
         public Employee GetById(int id)
         {
-            return _employeeRepository.FirstOrDefault(x => x.ID == id);
+            return _employeeDal.FirstOrDefault(x => x.ID == id);
+        }
+
+        public List<Employee> GetAll()
+        {
+            return _employeeDal.GetAll();
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p0Nq3lqrTSd1uA8sxYEhIMQLTCQLtJyC9KKJOoTalTcKLT/Lxykr8WtvqOI+DtM5uHCyCrBvm9PhVC1nAsiVlA==",
+  "dgSpecHash": "0Lz/5FmzdjTMeW+CDm9JEjf3ZUTHnz1HMj6Cz2Y6M0re9+T2vQcBl+vMKjtVEVq6S4sVxgOVqK9MjWILJ5hmcw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hakan\\Desktop\\BilgeAdam Ödev\\v4\\RestaurantAdisyon-master\\RA.AspNetCoreMVC\\RA.AspNetCoreMVC.csproj",
+  "projectFilePath": "C:\\Users\\hakan\\Source\\Repos\\sonmezhakan\\RestaurantAdisyon\\RA.AspNetCoreMVC\\RA.AspNetCoreMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hakan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\hakan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

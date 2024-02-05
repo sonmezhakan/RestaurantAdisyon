@@ -12,69 +12,50 @@ using System.Threading.Tasks;
 
 namespace RA.DataAccess.Repositories.Concretes
 {
-    public class BaseRepository<T, TContext> : IRepository<T> where T : class, IEntity
-        where TContext : DbContext, new()
+    public class BaseRepository<T> : IRepository<T> where T : class, IEntity
     {
 
-       /* private readonly RestaurantAdisyonContext _context;
+        private readonly RestaurantAdisyonContext _context;
 
         public BaseRepository(RestaurantAdisyonContext context)
         {
             _context = context;
-        }*/
+        }
 
         public void Add(T entity)
         {
-            using (TContext context = new TContext())
-            {
-                entity.CreatedDate = DateTime.Now;
-                context.Set<T>().Add(entity);
-                context.SaveChanges();
-            }
+            entity.CreatedDate = DateTime.Now;
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            using (TContext context = new TContext())
-            {
-                context.Set<T>().Remove(entity);
-                context.SaveChanges();
-            }
+            _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> filter)
         {
-            using (TContext context = new TContext())
-            {
-                return context.Set<T>().FirstOrDefault(filter);
-            }
+            return _context.Set<T>().FirstOrDefault(filter);
         }
 
         public bool FirstOrDefaultBool(Expression<Func<T, bool>> filter)
         {
-            using (TContext context = new TContext())
-            {
-                return context.Set<T>().Any(filter);
-            }
+            return _context.Set<T>().Any(filter);
         }
 
         public List<T> GetAll(Expression<Func<T, bool>> filter = null)
         {
-            using (TContext context = new TContext())
-            {
-                return context.Set<T>().ToList();
-            }
+            return _context.Set<T>().ToList();
         }
 
         public void Update(T entity)
         {
-            using (TContext context = new TContext())
-            {
-                entity.UpdatedDate = DateTime.Now;
-                T original = context.Set<T>().Find(entity.ID);
-                context.Entry(original).CurrentValues.SetValues(entity);
-                context.SaveChanges();
-            }
+            entity.UpdatedDate = DateTime.Now;
+            T original = _context.Set<T>().Find(entity.ID);
+            _context.Entry(original).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
         }
     }
 }

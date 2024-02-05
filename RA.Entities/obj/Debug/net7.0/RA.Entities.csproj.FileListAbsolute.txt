@@ -22,3 +22,15 @@ C:\Users\hakan\Desktop\BilgeAdam Ödev\v4\RestaurantAdisyon-master\RA.Entities\o
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v4\RestaurantAdisyon-master\RA.Entities\obj\Debug\net7.0\refint\RA.Entities.dll
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v4\RestaurantAdisyon-master\RA.Entities\obj\Debug\net7.0\RA.Entities.pdb
 C:\Users\hakan\Desktop\BilgeAdam Ödev\v4\RestaurantAdisyon-master\RA.Entities\obj\Debug\net7.0\ref\RA.Entities.dll
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\bin\Debug\net7.0\RA.Entities.deps.json
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\bin\Debug\net7.0\RA.Entities.dll
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\bin\Debug\net7.0\RA.Entities.pdb
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.AssemblyInfoInputs.cache
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.AssemblyInfo.cs
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.csproj.CoreCompileInputs.cache
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.sourcelink.json
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.dll
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\refint\RA.Entities.dll
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\RA.Entities.pdb
+C:\Users\hakan\Source\Repos\sonmezhakan\RestaurantAdisyon\RA.Entities\obj\Debug\net7.0\ref\RA.Entities.dll

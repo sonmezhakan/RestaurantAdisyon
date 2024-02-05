@@ -7,41 +7,41 @@ using System.Linq.Expressions;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class CategoryManager : BaseManager<Category>, ICategoryManager
+    public class CategoryManager : ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryDal _categoryDal;
 
-        public CategoryManager(ICategoryRepository categoryRepository) : base(categoryRepository)
+        public CategoryManager(ICategoryDal categoryDal)
         {
-            _categoryRepository = categoryRepository;
+            _categoryDal = categoryDal;
         }
 
-        /*public void Add(Category category)
+        public void Add(Category category)
         {
-            if (!_categoryRepository.FirstOrDefaultBool(x=>x.CategoryName == category.CategoryName))
+            if (!_categoryDal.FirstOrDefaultBool(x=>x.CategoryName == category.CategoryName))
             {
-                _categoryRepository.Add(category);
+                _categoryDal.Add(category);
             }
         }
         public void Update(Category category)
         {
-            if (_categoryRepository.FirstOrDefaultBool(x=>x.ID == category.ID))
+            if (_categoryDal.FirstOrDefaultBool(x=>x.ID == category.ID))
             {
-                _categoryRepository.Update(category);
+                _categoryDal.Update(category);
             }
         }
         public void Delete(int id)
         {
-            var getCategory = _categoryRepository.FirstOrDefault(x=>x.ID==id);
+            var getCategory = _categoryDal.FirstOrDefault(x=>x.ID==id);
             if (getCategory != null)
             {
-                _categoryRepository.Delete(getCategory);
+                _categoryDal.Delete(getCategory);
             }
-        }*/
+        }
 
         public List<Category> GetAllComboBox()
         {
-            return _categoryRepository.GetAll().Select(x => new Category
+            return _categoryDal.GetAll().Select(x => new Category
             {
                 ID = x.ID,
                 CategoryName = x.CategoryName
@@ -50,12 +50,17 @@ namespace RA.Business.ManagerService.Concretes
 
         public Category GetById(int id)
         {
-            return _categoryRepository.FirstOrDefault(x => x.ID == id);
+            return _categoryDal.FirstOrDefault(x => x.ID == id);
         }
 
         public Category GetByCategoryName(string categoryName)
         {
-            return _categoryRepository.FirstOrDefault(x => x.CategoryName == categoryName);
+            return _categoryDal.FirstOrDefault(x => x.CategoryName == categoryName);
+        }
+
+        public List<Category> GetAll()
+        {
+            return _categoryDal.GetAll();
         }
     }
 }

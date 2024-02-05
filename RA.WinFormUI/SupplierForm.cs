@@ -1,4 +1,6 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
 
@@ -7,13 +9,15 @@ namespace RA.WinFormUI
 {
     public partial class SupplierForm : Form
     {
-
-        public SupplierForm()
+        private readonly IAppUserService _appUserService;
+        private readonly ISupplierService _supplierService;
+        public SupplierForm(IServiceProvider serviceProvider)
         {
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
+            _supplierService = serviceProvider.GetRequiredService<ISupplierService>();
             InitializeComponent();
         }
-        SupplierManager supplierManager = new SupplierManager(new SupplierRepository());
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+
         private void SupplierForm_Load(object sender, EventArgs e)
         {
             ComboSupplierList();
@@ -26,7 +30,7 @@ namespace RA.WinFormUI
             comboSupplier.DisplayMember = ComboBoxMember.SupplierName;
             comboSupplier.ValueMember = ComboBoxMember.ID;
 
-            comboSupplier.DataSource = supplierManager.GetAllComboBox();
+            comboSupplier.DataSource = _supplierService.GetAllComboBox();
         }
         private void DgwSettings()
         {
@@ -45,7 +49,7 @@ namespace RA.WinFormUI
 
         private void SupplierList()
         {
-            var getSupplier = supplierManager.GetAll();
+            var getSupplier = _supplierService.GetAll();
             if (getSupplier != null)
             {
                 dataGridView1.DataSource = null;
@@ -53,14 +57,14 @@ namespace RA.WinFormUI
 
                 foreach (var item in getSupplier)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.CompanyName, item.ContactName, item.PhoneNumber, item.Adress, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.CompanyName, item.ContactName, item.PhoneNumber, item.Adress, item.IsActive, item.CreatedDate, item.UpdatedDate, _appUserService.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
 
         private void comboSupplier_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            var getSupplier = _supplierService.GetById((int)comboSupplier.SelectedValue);
             if (getSupplier != null)
             {
                 lblID.Text = getSupplier.ID.ToString();
@@ -97,9 +101,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtAdress.Text))
             {
-                if (!supplierManager.GetByNameBool(txtCompanyName.Text))
+                if (!_supplierService.GetByNameBool(txtCompanyName.Text))
                 {
-                    supplierManager.Add(new Entities.Entity.Supplier
+                    _supplierService.Add(new Entities.Entity.Supplier
                     {
                         CompanyName = txtCompanyName.Text,
                         ContactName = txtContactName.Text,
@@ -125,19 +129,19 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            var getSupplier = _supplierService.GetById((int)comboSupplier.SelectedValue);
             if(getSupplier != null)
             {
                 if (!string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtAdress.Text))
                 {
-                    if (getSupplier.CompanyName == txtCompanyName.Text || supplierManager.GetByName(txtCompanyName.Text) == null)
+                    if (getSupplier.CompanyName == txtCompanyName.Text || _supplierService.GetByName(txtCompanyName.Text) == null)
                     {
                         getSupplier.CompanyName = txtCompanyName.Text;
                         getSupplier.ContactName = txtContactName.Text;
                         getSupplier.PhoneNumber = txtPhoneNumber.Text;
                         getSupplier.Adress = txtAdress.Text;
                         getSupplier.IsActive = checkStatu.Checked;
-                        supplierManager.Update(getSupplier);
+                        _supplierService.Update(getSupplier);
                         ComboSupplierList();
                         SupplierList();
                     }
@@ -159,10 +163,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            var getSupplier = _supplierService.GetById((int)comboSupplier.SelectedValue);
             if(getSupplier != null)
             {
-                supplierManager.Delete(getSupplier);
+                _supplierService.Delete(getSupplier.ID);
                 ComboSupplierList();
                 SupplierList();
             }

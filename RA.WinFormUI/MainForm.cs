@@ -1,4 +1,5 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
 using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
@@ -17,18 +18,24 @@ namespace RA.WinFormUI
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private readonly IProductService _productService;
+        private readonly ITableService _tableService;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
+        private readonly IServiceProvider _serviceProvider;
+
+        public MainForm(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
+            _productService = serviceProvider.GetRequiredService<IProductService>();
+            _tableService = serviceProvider.GetRequiredService<ITableService>();
+            _orderService = serviceProvider.GetRequiredService<IOrderService>();
+            _orderDetailService = serviceProvider.GetRequiredService<IOrderDetailService>();
             InitializeComponent();
         }
         public static int userId;
 
         int tableId = 0;
-
-        ProductManager productManager = new ProductManager(new ProductRepository());
-        TableManager tableManager = new TableManager(new TableRepository());
-        OrderManager orderManager = new OrderManager(new OrderRepository());
-        OrderDetailManager orderDetailManager = new OrderDetailManager(new OrderDetailRepository());
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -44,7 +51,7 @@ namespace RA.WinFormUI
             int locX = 15;
             int locY = 19;
             int k = 0;
-            var getProduct = productManager.GetAll();
+            var getProduct = _productService.GetAll();
             Button[] buttonArray = new Button[getProduct.Count()];
 
             for (int i = 1; i <= getProduct.Count(); i++)
@@ -84,12 +91,12 @@ namespace RA.WinFormUI
         {
             Button button = sender as Button;
 
-            if (tableManager.GetById(tableId) != null)
+            if (_tableService.GetById(tableId) != null)
             {
-                Order getTable = orderManager.GetByTableId(tableId, true);
+                Order getTable = _orderService.GetByTableId(tableId, true);
                 if (getTable != null)
                 {
-                    List<OrderDetail> orderDetail = orderDetailManager.GetByOrderIdList(getTable.ID);
+                    List<OrderDetail> orderDetail = _orderDetailService.GetByOrderIdList(getTable.ID);
                     var getOrderDetail = orderDetail.FirstOrDefault(x => x.ProductID == int.Parse(button.Name));
                     if (getOrderDetail != null)
                     {
@@ -97,9 +104,9 @@ namespace RA.WinFormUI
                     }
                     else
                     {
-                        OrderDetailAdd(getTable, productManager.GetById(int.Parse(button.Name)));
+                        OrderDetailAdd(getTable, _productService.GetById(int.Parse(button.Name)));
                     }
-                    ProductStockRemoveUpdate(productManager.GetById(int.Parse(button.Name)), 1);
+                    ProductStockRemoveUpdate(_productService.GetById(int.Parse(button.Name)), 1);
                     OrderList(tableId);
                     ProductList();
                     bttnRefresh_Click(sender, e);
@@ -119,7 +126,7 @@ namespace RA.WinFormUI
         }
         private void OrderAdd()
         {
-            orderManager.Add(new Order
+            _orderService.Add(new Order
             {
                 TableId = tableId,
                 OrderDate = DateTime.Now,
@@ -132,7 +139,7 @@ namespace RA.WinFormUI
 
         private void OrderDetailAdd(Order order, Product product)
         {
-            orderDetailManager.Add(new OrderDetail
+            _orderDetailService.Add(new OrderDetail
             {
                 OrderID = order.ID,
                 ProductID = product.ID,
@@ -148,7 +155,7 @@ namespace RA.WinFormUI
         {
             orderDetail.Quantity += 1;
             orderDetail.UpdatedDate = DateTime.Now;
-            orderDetailManager.Update(orderDetail);
+            _orderDetailService.Update(orderDetail);
         }
 
         private void TableList()
@@ -158,7 +165,7 @@ namespace RA.WinFormUI
             int locX = 11;
             int locY = 19;
 
-            var getTable = tableManager.GetAll();
+            var getTable = _tableService.GetAll();
             Button[] buttonTableArray = new Button[getTable.Count()];
 
             for (int i = 1; i <= getTable.Count(); i++)
@@ -204,17 +211,17 @@ namespace RA.WinFormUI
 
         private void OrderList(int tableId)
         {
-            var resultOrder = orderManager.GetByTableId(tableId, true);
+            var resultOrder = _orderService.GetByTableId(tableId, true);
             decimal totalPrice = 0;
-            if (resultOrder != null && orderDetailManager.GetByOrderIdList(resultOrder.ID) != null)
+            if (resultOrder != null && _orderDetailService.GetByOrderIdList(resultOrder.ID) != null)
             {
                 totalPrice = 0;
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
 
-                foreach (var item in orderDetailManager.GetByOrderIdList(resultOrder.ID))
+                foreach (var item in _orderDetailService.GetByOrderIdList(resultOrder.ID))
                 {
-                    dataGridView1.Rows.Add(item.OrderID, productManager.GetById(item.ProductID).ProductName, item.Quantity, Math.Round(item.UnitPrice, 2));
+                    dataGridView1.Rows.Add(item.OrderID, _productService.GetById(item.ProductID).ProductName, item.Quantity, Math.Round(item.UnitPrice, 2));
                     totalPrice += Math.Round(item.Quantity * item.UnitPrice, 2);
                 }
                 lblTotalPrice.Text = Math.Round(totalPrice, 2).ToString();
@@ -240,20 +247,20 @@ namespace RA.WinFormUI
         private void ProductStockRemoveUpdate(Product product, int quantity)
         {
             product.UnitsInStock -= quantity;
-            productManager.Update(product);
+            _productService.Update(product);
         }
         private void ProductStockAddUpdate(Product product, int quantity)
         {
             product.UnitsInStock += quantity;
-            productManager.Update(product);
+            _productService.Update(product);
         }
 
         private void silToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var getOrderDetail = orderDetailManager.GetByOrderIdList((int)dataGridView1.SelectedCells[0].Value);
-            var getProduct = productManager.GetByName(dataGridView1.SelectedCells[1].Value.ToString());
+            var getOrderDetail = _orderDetailService.GetByOrderIdList((int)dataGridView1.SelectedCells[0].Value);
+            var getProduct = _productService.GetByName(dataGridView1.SelectedCells[1].Value.ToString());
 
-            orderDetailManager.Delete(orderDetailManager.GetByOrderAndProductId((int)dataGridView1.SelectedCells[0].Value, getProduct.ID));
+            _orderDetailService.Delete(_orderDetailService.GetByOrderAndProductId((int)dataGridView1.SelectedCells[0].Value, getProduct.ID).ID);
 
             ProductStockAddUpdate(getProduct, int.Parse(dataGridView1.SelectedCells[2].Value.ToString()));
             OrderList(tableId);
@@ -262,58 +269,58 @@ namespace RA.WinFormUI
 
         private void toolStripButtonCategory_Click(object sender, EventArgs e)
         {
-            CategoryForm category = new CategoryForm();
+            CategoryForm category = new CategoryForm(_serviceProvider);
             category.Show();
         }
 
         private void toolStripButtonProduct_Click(object sender, EventArgs e)
         {
-            ProductForm product = new ProductForm();
+            ProductForm product = new ProductForm(_serviceProvider);
             product.Show();
         }
 
         private void toolStripButtonEmployee_Click(object sender, EventArgs e)
         {
-            EmployeeForm employee = new EmployeeForm();
+            EmployeeForm employee = new EmployeeForm(_serviceProvider);
             employee.Show();
         }
 
         private void toolStripButtonTable_Click(object sender, EventArgs e)
         {
-            TableForm table = new TableForm();
+            TableForm table = new TableForm(_serviceProvider);
             table.Show();
         }
 
         private void bttnPayment_Click(object sender, EventArgs e)
         {
 
-            PaymentForm paymentForm = new PaymentForm();
+            PaymentForm paymentForm = new PaymentForm(_serviceProvider);
             PaymentForm.totalPrice = Math.Round(decimal.Parse(lblTotalPrice.Text), 2);
-            PaymentForm.getOrder = orderManager.GetByTableId(tableId, true);
+            PaymentForm.getOrder = _orderService.GetByTableId(tableId, true);
             paymentForm.ShowDialog();
         }
 
         private void toolStripButtonUser_Click(object sender, EventArgs e)
         {
-            AppUserForm appUserForm = new AppUserForm();
+            AppUserForm appUserForm = new AppUserForm(_serviceProvider);
             appUserForm.Show();
         }
 
         private void siparişListesiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrderForm orderForm = new OrderForm();
+            OrderForm orderForm = new OrderForm(_serviceProvider);
             orderForm.Show();
         }
 
         private void toolStripButtonStock_Click(object sender, EventArgs e)
         {
-            StockForm stockForm = new StockForm();
+            StockForm stockForm = new StockForm(_serviceProvider);
             stockForm.Show();
         }
 
         private void toolStripButtonSupplier_Click(object sender, EventArgs e)
         {
-            SupplierForm supplierForm = new SupplierForm();
+            SupplierForm supplierForm = new SupplierForm(_serviceProvider);
             supplierForm.Show();
         }
 

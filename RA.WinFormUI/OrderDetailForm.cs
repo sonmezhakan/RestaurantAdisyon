@@ -1,4 +1,5 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
 using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
@@ -17,16 +18,19 @@ namespace RA.WinFormUI
 {
     public partial class OrderDetailForm : Form
     {
-        public OrderDetailForm()
+        private readonly IOrderDetailService _orderDetailService;
+        private readonly IProductService _productService;
+        private readonly IAppUserService _appUserService;
+
+        public OrderDetailForm(IServiceProvider serviceProvider)
         {
+            _productService = serviceProvider.GetRequiredService<IProductService>();
+            _orderDetailService = serviceProvider.GetRequiredService<IOrderDetailService>();
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
             InitializeComponent();
         }
 
         public static int orderID = 0;
-
-        OrderDetailManager orderDetailManager = new OrderDetailManager(new OrderDetailRepository());
-        ProductManager productManager = new ProductManager(new ProductRepository());
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
 
         private void OrderDetailForm_Load(object sender, EventArgs e)
         {
@@ -37,12 +41,12 @@ namespace RA.WinFormUI
         {
             if(orderID != null || orderID > 0)
             {
-                OrderDetailList(orderDetailManager.GetByOrderIdList(orderID));
+                OrderDetailList(_orderDetailService.GetByOrderIdList(orderID));
                 orderID = 0;
             }
             else
             {
-                OrderDetailList(orderDetailManager.GetAll());
+                OrderDetailList(_orderDetailService.GetAll());
                 orderID = 0;
             }
         }
@@ -56,7 +60,7 @@ namespace RA.WinFormUI
 
                 foreach (var item in getOrderDetail)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.OrderID, productManager.GetById(item.ProductID).ProductName, item.UnitPrice, item.Quantity, item.Discount, item.IsActive, item.CreatedDate, item.UpdatedDate, appUserManager.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, item.OrderID, _productService.GetById(item.ProductID).ProductName, item.UnitPrice, item.Quantity, item.Discount, item.IsActive, item.CreatedDate, item.UpdatedDate, _appUserService.GetById(item.CreatedUserId).UserName);
                 }
             }
         }

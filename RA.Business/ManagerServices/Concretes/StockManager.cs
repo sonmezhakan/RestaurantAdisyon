@@ -9,36 +9,43 @@ using System.Threading.Tasks;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class StockManager :BaseManager<Stock>, IStockManager
+    public class StockManager : IStockService
     {
-        private readonly IStockRepository _stockRepository;
+        private readonly IStockDal _stockDal;
 
-        public StockManager(IStockRepository stockRepository):base(stockRepository)
+        public StockManager(IStockDal stockDal)
         {
-            _stockRepository = stockRepository;
+            _stockDal = stockDal;
         }
 
         public Stock GetById(int id)
         {
-           return _stockRepository.FirstOrDefault(x => x.ID == id);
+            return _stockDal.FirstOrDefault(x => x.ID == id);
         }
-        /*public void Update(Stock stock)
-{
-   if (_stockRepository.FirstOrDefaultBool(x=>x.ID == stock.ID))
-   {
-       _stockRepository.Update(stock);
-   }
-}
-public void Delete(int id)
-{
-   var getStock = _stockRepository.FirstOrDefault(x => x.ID == id);
-   if (getStock != null)
-   {
-       _stockRepository.Delete(getStock);
-   }
-}*/
+        public void Update(Stock stock)
+        {
+            if (_stockDal.FirstOrDefaultBool(x => x.ID == stock.ID))
+            {
+                _stockDal.Update(stock);
+            }
+        }
+        public void Delete(int id)
+        {
+            var getStock = _stockDal.FirstOrDefault(x => x.ID == id);
+            if (getStock != null)
+            {
+                _stockDal.Delete(getStock);
+            }
+        }
 
+        public void Add(Stock stock)
+        {
+            _stockDal.Add(stock);
+        }
 
-
+        public List<Stock> GetAll()
+        {
+            return _stockDal.GetAll();
+        }
     }
 }

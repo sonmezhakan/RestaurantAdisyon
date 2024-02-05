@@ -5,40 +5,40 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class TableManager :BaseManager<Table>, ITableManager
+    public class TableManager : ITableService
     {
-        private readonly ITableRepository _tableRepository;
+        private readonly ITableDal _tableDal;
 
-        public TableManager(ITableRepository tableRepository):base(tableRepository)
+        public TableManager(ITableDal tableDal)
         {
-            _tableRepository = tableRepository;
+            _tableDal = tableDal;
         }
-        /*public void Add(Table table)
+        public void Add(Table table)
         {
-            if (!_tableRepository.FirstOrDefaultBool(x=>x.TableName == table.TableName))
+            if (!_tableDal.FirstOrDefaultBool(x=>x.TableName == table.TableName))
             {
-                _tableRepository.Add(table);
+                _tableDal.Add(table);
             }
         }
         public void Update(Table table)
         {
-            if (_tableRepository.FirstOrDefaultBool(x=>x.ID == table.ID))
+            if (_tableDal.FirstOrDefaultBool(x=>x.ID == table.ID))
             {
-                _tableRepository.Update(table);
+                _tableDal.Update(table);
             }
         }
         public void Delete(int id)
         {
-            var getTable = _tableRepository.FirstOrDefault(x => x.ID == id);
+            var getTable = _tableDal.FirstOrDefault(x => x.ID == id);
             if (getTable != null)
             {
-                _tableRepository.Delete(getTable);
+                _tableDal.Delete(getTable);
             }
-        }*/
+        }
 
         public List<Table> GetAllComboBox()
         {
-            return _tableRepository.GetAll().Select(x => new Table
+            return _tableDal.GetAll().Select(x => new Table
             {
                 ID = x.ID,
                 TableName = x.TableName
@@ -47,12 +47,17 @@ namespace RA.Business.ManagerService.Concretes
 
         public Table GetById(int id)
         {
-            return _tableRepository.FirstOrDefault(x => x.ID == id);
+            return _tableDal.FirstOrDefault(x => x.ID == id);
         }
 
         public bool GetByTableName(string tableName)
         {
-            return _tableRepository.FirstOrDefaultBool(x => x.TableName == tableName);
+            return _tableDal.FirstOrDefaultBool(x => x.TableName == tableName);
+        }
+
+        public List<Table> GetAll()
+        {
+            return _tableDal.GetAll();
         }
     }
 }

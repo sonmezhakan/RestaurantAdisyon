@@ -4,50 +4,60 @@ using RA.Entities.Entity;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class OrderDetailManager :BaseManager<OrderDetail>, IOrderDetailManager
+    public class OrderDetailManager : IOrderDetailService
     {
-        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderDetailDal _orderDetailDal;
 
-        public OrderDetailManager(IOrderDetailRepository orderDetailRepository):base(orderDetailRepository)
+        public OrderDetailManager(IOrderDetailDal orderDetailDal)
         {
-            _orderDetailRepository = orderDetailRepository;
+            _orderDetailDal = orderDetailDal;
         }
 
-       /* public void Update(OrderDetail orderDetail)
+       public void Update(OrderDetail orderDetail)
         {
-            if (_orderDetailRepository.FirstOrDefaultBool(x=>x.ID == orderDetail.ID))
+            if (_orderDetailDal.FirstOrDefaultBool(x=>x.ID == orderDetail.ID))
             {
-                _orderDetailRepository.Update(orderDetail);
+                _orderDetailDal.Update(orderDetail);
             }
         }
         public void Delete(int id)
         {
-            var getOrderDetail = _orderDetailRepository.FirstOrDefault(x => x.ID == id);
+            var getOrderDetail = _orderDetailDal.FirstOrDefault(x => x.ID == id);
             if (getOrderDetail != null)
             {
-                _orderDetailRepository.Delete(getOrderDetail);
+                _orderDetailDal.Delete(getOrderDetail);
             }
-        }*/
+        }
 
         
         public OrderDetail GetByOrderAndProductId(int orderId, int productId)
         {
-            return _orderDetailRepository.FirstOrDefault(x => x.OrderID == orderId && x.ProductID == productId);
+            return _orderDetailDal.FirstOrDefault(x => x.OrderID == orderId && x.ProductID == productId);
         }
 
         public List<OrderDetail> GetByOrderIdList(int id)
         {
-            return _orderDetailRepository.GetAll().Where(x => x.OrderID == id).ToList();
+            return _orderDetailDal.GetAll().Where(x => x.OrderID == id).ToList();
         }
 
         public OrderDetail GetOrderById(int id)
         {
-            return _orderDetailRepository.FirstOrDefault(x => x.OrderID == id);
+            return _orderDetailDal.FirstOrDefault(x => x.OrderID == id);
         }
 
         public OrderDetail GetById(int id)
         {
-            return _orderDetailRepository.FirstOrDefault(x => x.ID == id);
+            return _orderDetailDal.FirstOrDefault(x => x.ID == id);
+        }
+
+        public void Add(OrderDetail orderDetail)
+        {
+            _orderDetailDal.Add(orderDetail);
+        }
+
+        public List<OrderDetail> GetAll()
+        {
+            return _orderDetailDal.GetAll();
         }
     }
 }

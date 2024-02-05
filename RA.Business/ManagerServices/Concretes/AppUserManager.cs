@@ -6,34 +6,34 @@ using RA.Entities.Entity;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class AppUserManager : BaseManager<AppUser>, IAppUserManager
+    public class AppUserManager : IAppUserService
     {
-        IAppUserRepository _appUserRepository;
+        IAppUserDal _appUserDal;
 
-        public AppUserManager(IAppUserRepository appUserRepository) : base(appUserRepository)
+        public AppUserManager(IAppUserDal appUserDal)
         {
-            _appUserRepository = appUserRepository;
+            _appUserDal = appUserDal;
         }
 
-        /*public void Add(AppUser appUser)
+        public void Add(AppUser appUser)
         {
-            if (!_appUserRepository.FirstOrDefaultBool(x => x.UserName == appUser.UserName)) _appUserRepository.Add(appUser);
+            if (!_appUserDal.FirstOrDefaultBool(x => x.UserName == appUser.UserName)) _appUserDal.Add(appUser);
         }
 
         public void Delete(int id)
         {
-            var getUser = _appUserRepository.FirstOrDefault(x => x.ID == id);
-            if (getUser != null) _appUserRepository.Delete(getUser);
+            var getUser = _appUserDal.FirstOrDefault(x => x.ID == id);
+            if (getUser != null) _appUserDal.Delete(getUser);
         }
 
         public void Update(AppUser appUser)
         {
-            if (!_appUserRepository.FirstOrDefaultBool(x => x.ID == appUser.ID)) _appUserRepository.Update(appUser);
-        }*/
+            if (!_appUserDal.FirstOrDefaultBool(x => x.ID == appUser.ID)) _appUserDal.Update(appUser);
+        }
 
         public List<AppUser> GetAllComboBox()
         {
-            return _appUserRepository.GetAll().Select(x => new AppUser
+            return _appUserDal.GetAll().Select(x => new AppUser
             {
                 ID = x.ID,
                 UserName = x.UserName
@@ -41,17 +41,17 @@ namespace RA.Business.ManagerService.Concretes
         }
         public bool GetByEmployeeId(int id)
         {
-            return _appUserRepository.FirstOrDefaultBool(x => x.ID == id);
+            return _appUserDal.FirstOrDefaultBool(x => x.ID == id);
         }
 
         public bool GetByLogin(string userName, string password)
         {
-            return _appUserRepository.FirstOrDefaultBool(x => x.UserName == userName && x.Password == password);
+            return _appUserDal.FirstOrDefaultBool(x => x.UserName == userName && x.Password == password);
         }
 
         public AppUser GetByUserName(string userName)
         {
-            return _appUserRepository.FirstOrDefault(x => x.UserName == userName);
+            return _appUserDal.FirstOrDefault(x => x.UserName == userName);
         }
 
         public int GetByUserNameReturnId(string userName)
@@ -61,7 +61,12 @@ namespace RA.Business.ManagerService.Concretes
 
         public AppUser GetById(int id)
         {
-            return _appUserRepository.FirstOrDefault(x => x.ID == id);
+            return _appUserDal.FirstOrDefault(x => x.ID == id);
+        }
+
+        public List<AppUser> GetAll()
+        {
+            return _appUserDal.GetAll();
         }
     }
 }

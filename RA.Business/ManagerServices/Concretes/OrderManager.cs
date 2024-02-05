@@ -4,43 +4,53 @@ using RA.Entities.Entity;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class OrderManager : BaseManager<Order>, IOrderManager
+    public class OrderManager : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderDal _orderDal;
 
-        public OrderManager(IOrderRepository orderRepository) : base(orderRepository)
+        public OrderManager(IOrderDal orderDal)
         {
-            _orderRepository = orderRepository;
+            _orderDal = orderDal;
         }
-        /*public void Update(Order order)
+        public void Update(Order order)
         {
-            if (_orderRepository.FirstOrDefaultBool(x => x.ID == order.ID))
+            if (_orderDal.FirstOrDefaultBool(x => x.ID == order.ID))
             {
-                _orderRepository.Update(order);
+                _orderDal.Update(order);
             }
         }
         public void Delete(int id)
         {
-            var getOrder = FirstOrDefault(x => x.ID == id);
+            var getOrder = _orderDal.FirstOrDefault(x => x.ID == id);
             if (getOrder != null)
             {
-                _orderRepository.Delete(getOrder);
+                _orderDal.Delete(getOrder);
             }
-        }*/
+        }
 
          public Order GetByTableId(int tableId)
          {
-             return _orderRepository.FirstOrDefault(x => x.TableId == tableId);
+             return _orderDal.FirstOrDefault(x => x.TableId == tableId);
          }
 
          public Order GetByTableId(int tableId, bool orderIsActive)
          {
-             return _orderRepository.FirstOrDefault(x => x.TableId == tableId && x.IsActive == orderIsActive);
+             return _orderDal.FirstOrDefault(x => x.TableId == tableId && x.IsActive == orderIsActive);
          }
 
         public Order GetById(int id)
         {
-            return _orderRepository.FirstOrDefault(x => x.ID == id);
+            return _orderDal.FirstOrDefault(x => x.ID == id);
+        }
+
+        public void Add(Order order)
+        {
+            _orderDal.Add(order);
+        }
+
+        public List<Order> GetAll()
+        {
+            return _orderDal.GetAll();
         }
     }
 }

@@ -4,41 +4,41 @@ using RA.Entities.Entity;
 
 namespace RA.Business.ManagerService.Concretes
 {
-    public class ProductManager :BaseManager<Product>, IProductManager
+    public class ProductManager :IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductDal _productDal;
 
-        public ProductManager(IProductRepository productRepository):base(productRepository)
+        public ProductManager(IProductDal productDal)
         {
-            _productRepository = productRepository;
+            _productDal = productDal;
         }
 
-        /*public void Add(Product product)
+        public void Add(Product product)
         {
-            if (!_productRepository.FirstOrDefaultBool(x=>x.ProductName == product.ProductName))
+            if (!_productDal.FirstOrDefaultBool(x=>x.ProductName == product.ProductName))
             {
-                _productRepository.Add(product);
+                _productDal.Add(product);
             }
         }
         public void Update(Product product)
         {
-            if (_productRepository.FirstOrDefaultBool(x => x.ID == product.ID))
+            if (_productDal.FirstOrDefaultBool(x => x.ID == product.ID))
             {
-                _productRepository.Update(product);
+                _productDal.Update(product);
             }
         }
         public void Delete(int id)
         {
-            var getProduct = _productRepository.FirstOrDefault(x => x.ID == id);
+            var getProduct = _productDal.FirstOrDefault(x => x.ID == id);
             if (getProduct != null)
             {
-                _productRepository.Delete(getProduct);
+                _productDal.Delete(getProduct);
             }
-        }*/
+        }
 
         public List<Product> GetAllComboBox()
         {
-            return _productRepository.GetAll().Select(x => new Product
+            return _productDal.GetAll().Select(x => new Product
             {
                 ID = x.ID,
                 ProductName = x.ProductName
@@ -47,12 +47,17 @@ namespace RA.Business.ManagerService.Concretes
 
         public Product GetByName(string productName)
         {
-            return _productRepository.FirstOrDefault(x => x.ProductName == productName);
+            return _productDal.FirstOrDefault(x => x.ProductName == productName);
         }
 
         public Product GetById(int id)
         {
-            return _productRepository.FirstOrDefault(x=>x.ID == id);
+            return _productDal.FirstOrDefault(x=>x.ID == id);
+        }
+
+        public List<Product> GetAll()
+        {
+            return _productDal.GetAll();
         }
     }
 }

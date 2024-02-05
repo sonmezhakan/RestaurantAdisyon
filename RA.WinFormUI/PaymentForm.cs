@@ -1,4 +1,5 @@
-﻿using RA.Business.ManagerService.Abstracts;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
 using RA.Entities.Entity;
@@ -16,14 +17,15 @@ namespace RA.WinFormUI
 {
     public partial class PaymentForm : Form
     {
-        public PaymentForm()
+        private readonly IOrderService _orderService;
+
+        public PaymentForm(IServiceProvider serviceProvider)
         {
+            _orderService = serviceProvider.GetRequiredService<IOrderService>();
             InitializeComponent();
         }
 
         public static decimal totalPrice = 0;
-
-        OrderManager orderManager = new OrderManager(new OrderRepository());
 
         public static Order getOrder = null;
 
@@ -132,12 +134,16 @@ namespace RA.WinFormUI
         {
             order.IsActive = false;
             order.UpdatedDate = DateTime.Now;
-            orderManager.Update(order);
+            _orderService.Update(order);
         }
 
         private void bttnPlenty_Click(object sender, EventArgs e)
         {
-            lblPrice.Text = (decimal.Parse(lblTotalPrice.Text) / decimal.Parse(lblPrice.Text)).ToString();
+            if (int.Parse(lblPrice.Text) > 0)
+            {
+                lblPrice.Text = (decimal.Parse(lblTotalPrice.Text) / decimal.Parse(lblPrice.Text)).ToString(); 
+            }
+                
         }
     }
 }

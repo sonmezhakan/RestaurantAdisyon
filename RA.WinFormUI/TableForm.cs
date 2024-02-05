@@ -1,4 +1,5 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
 using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
@@ -17,13 +18,15 @@ namespace RA.WinFormUI
 {
     public partial class TableForm : Form
     {
-        public TableForm()
+        private readonly ITableService _tableService;
+        private readonly IAppUserService _appUserService;
+        public TableForm(IServiceProvider serviceProvider)
         {
+            _tableService = serviceProvider.GetRequiredService<ITableService>();
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
+
             InitializeComponent();
         }
-
-        TableManager tableManager = new TableManager(new TableRepository());
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
 
         private void TableForm_Load(object sender, EventArgs e)
         {
@@ -36,12 +39,12 @@ namespace RA.WinFormUI
             comboTable.DisplayMember = ComboBoxMember.TableName;
             comboTable.ValueMember = ComboBoxMember.ID;
 
-            comboTable.DataSource = tableManager.GetAllComboBox();
+            comboTable.DataSource = _tableService.GetAllComboBox();
         }
 
         private void comboTable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
+            var getTable = _tableService.GetById((int)comboTable.SelectedValue);
             if (getTable != null)
             {
                 lblID.Text = getTable.ID.ToString();
@@ -57,7 +60,7 @@ namespace RA.WinFormUI
 
         private void GetList()
         {
-            var tableList = tableManager.GetAll();
+            var tableList = _tableService.GetAll();
             if (tableList != null)
             {
                 dataGridView1.DataSource = null;
@@ -66,7 +69,7 @@ namespace RA.WinFormUI
                 foreach (var item in tableList)
                 {
                     dataGridView1.Rows.Add(item.ID, item.TableName, item.Description, item.IsActive, item.CreatedDate, item.UpdatedDate,
-                        appUserManager.GetById(item.CreatedUserId).UserName);
+                        _appUserService.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
@@ -88,9 +91,9 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtTableName.Text))
             {
-                if (tableManager.GetByTableName(txtTableName.Text) != true)
+                if (_tableService.GetByTableName(txtTableName.Text) != true)
                 {
-                    tableManager.Add(new Entities.Entity.Table
+                    _tableService.Add(new Entities.Entity.Table
                     {
                         TableName = txtTableName.Text,
                         Description = txtDescription.Text,
@@ -115,17 +118,17 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
+            var getTable = _tableService.GetById((int)comboTable.SelectedValue);
             if (getTable != null && !string.IsNullOrEmpty(txtTableName.Text))
             {
-                if (getTable.TableName == txtTableName.Text || tableManager.GetByTableName(txtTableName.Text) != true)
+                if (getTable.TableName == txtTableName.Text || _tableService.GetByTableName(txtTableName.Text) != true)
                 {
                     getTable.TableName = txtTableName.Text;
                     getTable.Description = txtDescription.Text;
                     getTable.IsActive = checkStatu.Checked;
                     getTable.UpdatedDate = DateTime.Now;
 
-                    tableManager.Update(getTable);
+                    _tableService.Update(getTable);
                     ComboTableList();
                     GetList();
                 }
@@ -142,10 +145,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getTable = tableManager.GetById((int)comboTable.SelectedValue);
+            var getTable = _tableService.GetById((int)comboTable.SelectedValue);
             if (getTable != null)
             {
-                tableManager.Delete(getTable);
+                _tableService.Delete(getTable.ID);
                 ComboTableList();
                 GetList();
             }

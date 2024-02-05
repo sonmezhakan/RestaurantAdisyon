@@ -1,4 +1,6 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
+using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
 using System;
@@ -15,14 +17,20 @@ namespace RA.WinFormUI
 {
     public partial class StockForm : Form
     {
-        public StockForm()
+        private readonly IProductService _productService;
+        private readonly IAppUserService _appUserService;
+        private readonly ISupplierService _supplierService;
+        private readonly IStockService _stockService;
+        public StockForm(IServiceProvider serviceProvider)
         {
+            _productService = serviceProvider.GetRequiredService<IProductService>();
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
+            _supplierService = serviceProvider.GetRequiredService<ISupplierService>();
+            _stockService = serviceProvider.GetRequiredService<IStockService>();
+
             InitializeComponent();
         }
-        ProductManager productManager = new ProductManager(new ProductRepository());
-        SupplierManager supplierManager = new SupplierManager(new SupplierRepository());
-        StockManager stockManager = new StockManager(new StockRepository());
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
+
         private void StockForm_Load(object sender, EventArgs e)
         {
             ComboSupplierList();
@@ -36,14 +44,14 @@ namespace RA.WinFormUI
             comboSupplier.DisplayMember = ComboBoxMember.SupplierName;
             comboSupplier.ValueMember = ComboBoxMember.ID;
 
-            comboSupplier.DataSource = supplierManager.GetAllComboBox();
+            comboSupplier.DataSource = _supplierService.GetAllComboBox();
         }
         private void ComboProductList()
         {
             comboProduct.DisplayMember = ComboBoxMember.ProductName;
             comboProduct.ValueMember = ComboBoxMember.ID;
 
-            comboProduct.DataSource = productManager.GetAllComboBox();
+            comboProduct.DataSource = _productService.GetAllComboBox();
         }
         private void DgwSettings()
         {
@@ -61,7 +69,7 @@ namespace RA.WinFormUI
         }
         private void StockList()
         {
-            var getStock = stockManager.GetAll();
+            var getStock = _stockService.GetAll();
             if (getStock != null)
             {
                 dataGridView1.DataSource = null;
@@ -69,8 +77,8 @@ namespace RA.WinFormUI
 
                 foreach (var item in getStock)
                 {
-                    dataGridView1.Rows.Add(item.ID, productManager.GetById(item.ProductID).ProductName, supplierManager.GetById(item.SupplierID).CompanyName, item.UnitPrice, item.UnitsInStock, item.IsActive, item.CreatedDate, item.UpdatedDate,
-                        appUserManager.GetById(item.CreatedUserId).UserName);
+                    dataGridView1.Rows.Add(item.ID, _productService.GetById(item.ProductID).ProductName, _supplierService.GetById(item.SupplierID).CompanyName, item.UnitPrice, item.UnitsInStock, item.IsActive, item.CreatedDate, item.UpdatedDate,
+                        _appUserService.GetById(item.CreatedUserId).UserName);
                 }
             }
         }
@@ -92,7 +100,7 @@ namespace RA.WinFormUI
         }
         private void DgwClick()
         {
-            var getStock = stockManager.GetById((int)dataGridView1.SelectedCells[0].Value);
+            var getStock = _stockService.GetById((int)dataGridView1.SelectedCells[0].Value);
             if (getStock != null)
             {
                 lblID.Text = getStock.ID.ToString();
@@ -105,16 +113,16 @@ namespace RA.WinFormUI
 
         private void bttnAdd_Click(object sender, EventArgs e)
         {
-            var getProduct = productManager.GetById((int)comboProduct.SelectedValue);
-            var getSupplier = supplierManager.GetById((int)comboSupplier.SelectedValue);
+            var getProduct = _productService.GetById((int)comboProduct.SelectedValue);
+            var getSupplier = _supplierService.GetById((int)comboSupplier.SelectedValue);
             if (getProduct != null || getSupplier != null)
             {
                 if (!string.IsNullOrEmpty(txtUnitPrice.Text) && !string.IsNullOrEmpty(txtQuantity.Text))
                 {
                     getProduct.UnitsInStock += int.Parse(txtQuantity.Text);
-                    productManager.Update(getProduct);
+                    _productService.Update(getProduct);
 
-                    stockManager.Add(new Entities.Entity.Stock
+                    _stockService.Add(new Entities.Entity.Stock
                     {
                         ProductID = (int)comboProduct.SelectedValue,
                         SupplierID = (int)comboSupplier.SelectedValue,
@@ -138,14 +146,14 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getStock = stockManager.GetById(int.Parse(lblID.Text));
-            var getProduct = productManager.GetById(getStock.ProductID);
+            var getStock = _stockService.GetById(int.Parse(lblID.Text));
+            var getProduct = _productService.GetById(getStock.ProductID);
             if (getStock != null && getProduct != null)
             {
                 getProduct.UnitsInStock -= getStock.UnitsInStock;
-                productManager.Update(getProduct);
+                _productService.Update(getProduct);
 
-                stockManager.Delete(getStock);
+                _stockService.Delete(getStock.ID);
                 StockList();
 
             }
@@ -157,19 +165,19 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getStock = stockManager.GetById(int.Parse(lblID.Text));
-            var getProduct = productManager.GetById(getStock.ProductID);
+            var getStock = _stockService.GetById(int.Parse(lblID.Text));
+            var getProduct = _productService.GetById(getStock.ProductID);
             if (getStock != null && getProduct != null)
             {
                 if(!string.IsNullOrEmpty(txtQuantity.Text) && !string.IsNullOrEmpty(txtQuantity.Text))
                 {
                     getProduct.UnitsInStock -= getStock.UnitsInStock;
                     getProduct.UnitsInStock += int.Parse(txtQuantity.Text);
-                    productManager.Update(getProduct);
+                    _productService.Update(getProduct);
 
                     getStock.UnitPrice = decimal.Parse(txtUnitPrice.Text);
                     getStock.UnitsInStock = int.Parse(txtQuantity.Text);
-                    stockManager.Update(getStock);
+                    _stockService.Update(getStock);
                     StockList();
                     
                 }

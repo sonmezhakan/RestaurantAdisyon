@@ -11,14 +11,7 @@ namespace RA.DataAccess.Concrete
 {
     public class RestaurantAdisyonContext : DbContext
     {
-        public RestaurantAdisyonContext()
-        {
-            
-        }
-        public RestaurantAdisyonContext(DbContextOptions<RestaurantAdisyonContext> options):base(options)
-        {
-            
-        }
+
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }

@@ -1,4 +1,5 @@
-﻿using RA.Business.Constants;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RA.Business.Constants;
 using RA.Business.ManagerService.Abstracts;
 using RA.Business.ManagerService.Concretes;
 using RA.DataAccess.Repositories.Concretes;
@@ -18,12 +19,15 @@ namespace RA.WinFormUI
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+        private readonly IAppUserService _appUserService;
+        private readonly IServiceProvider _serviceProvider;
+
+        public LoginForm(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
             InitializeComponent();
         }
-
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
 
         private void checkBeniHatirla_CheckedChanged(object sender, EventArgs e)
         {
@@ -48,13 +52,13 @@ namespace RA.WinFormUI
         {
             if (!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text))
             {
-                if (appUserManager.GetByUserName(txtUserName.Text) != null)
+                if (_appUserService.GetByUserName(txtUserName.Text) != null)
                 {
-                    if (appUserManager.GetByLogin(txtUserName.Text, txtPassword.Text) == true)
+                    if (_appUserService.GetByLogin(txtUserName.Text, txtPassword.Text) == true)
                     {
-                        MainForm mainForm = new MainForm();
+                        MainForm mainForm = new MainForm(_serviceProvider);
                         mainForm.Show();
-                        MainForm.userId = appUserManager.GetByUserNameReturnId(txtUserName.Text);
+                        MainForm.userId = _appUserService.GetByUserNameReturnId(txtUserName.Text);
                         this.Hide();
                     }
                     else

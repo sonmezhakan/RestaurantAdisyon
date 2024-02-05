@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.ApplicationServices;
 using RA.Business.Constants;
 using RA.Business.ManagerService.Abstracts;
@@ -21,13 +22,15 @@ namespace RA.WinFormUI
 {
     public partial class AppUserForm : Form
     {
-        public AppUserForm()
+        private readonly IAppUserService _appUserService;
+        private readonly IEmployeeService _employeeService;
+
+        public AppUserForm(IServiceProvider serviceProvider)
         {
+            _appUserService = serviceProvider.GetRequiredService<IAppUserService>();
+            _employeeService = serviceProvider.GetRequiredService<IEmployeeService>();
             InitializeComponent();
         }
-
-        AppUserManager appUserManager = new AppUserManager(new AppUserRepository());
-        EmployeeManager employeeManager = new EmployeeManager(new EmployeeRepository());
 
         private void AppUserForm_Load(object sender, EventArgs e)
         {
@@ -42,19 +45,19 @@ namespace RA.WinFormUI
             comboUserName.DisplayMember = ComboBoxMember.UserName;
             comboUserName.ValueMember = ComboBoxMember.ID;
 
-            comboUserName.DataSource = appUserManager.GetAllComboBox();
+            comboUserName.DataSource = _appUserService.GetAllComboBox();
         }
         private void ComboFirstNameList()
         {
             comboEmployeeFirstName.DisplayMember = ComboBoxMember.FirstName;
             comboEmployeeFirstName.ValueMember = ComboBoxMember.ID;
 
-            comboEmployeeFirstName.DataSource = employeeManager.GetByAllComboBox();
+            comboEmployeeFirstName.DataSource = _employeeService.GetByAllComboBox();
         }
 
         private void comboEmployeeFirstName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getEmployee = employeeManager.GetByFirstName(comboEmployeeFirstName.Text);
+            var getEmployee = _employeeService.GetByFirstName(comboEmployeeFirstName.Text);
             if (getEmployee != null)
             {
                 comboEmployeeLastName.DisplayMember = ComboBoxMember.LastName;
@@ -69,12 +72,12 @@ namespace RA.WinFormUI
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
 
-            var getUserList = appUserManager.GetAll();
+            var getUserList = _appUserService.GetAll();
             if(getUserList != null )
             {
                 foreach (var item in getUserList)
                 {
-                    dataGridView1.Rows.Add(item.ID, item.UserName, employeeManager.GetById(item.ID).FirstName, item.IsActive, item.CreatedDate, item.UpdatedDate);
+                    dataGridView1.Rows.Add(item.ID, item.UserName, _employeeService.GetById(item.ID).FirstName, item.IsActive, item.CreatedDate, item.UpdatedDate);
                 }
             }
             
@@ -100,7 +103,7 @@ namespace RA.WinFormUI
 
         private void comboUserName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
+            var getUser = _appUserService.GetById((int)comboUserName.SelectedValue);
             if (getUser != null)
             {
                 lblID.Text = getUser.ID.ToString();
@@ -127,11 +130,11 @@ namespace RA.WinFormUI
             if(!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text) && comboEmployeeFirstName.SelectedValue != null &&
                 comboEmployeeLastName.SelectedValue != null)
             {
-                if(appUserManager.GetByUserName(txtUserName.Text) != null)
+                if(_appUserService.GetByUserName(txtUserName.Text) != null)
                 {
-                    if(comboEmployeeFirstName.SelectedValue.ToString() == comboEmployeeLastName.SelectedValue.ToString() && appUserManager.GetByEmployeeId((int)comboEmployeeFirstName.SelectedValue))
+                    if(comboEmployeeFirstName.SelectedValue.ToString() == comboEmployeeLastName.SelectedValue.ToString() && _appUserService.GetByEmployeeId((int)comboEmployeeFirstName.SelectedValue))
                     {
-                        appUserManager.Add(new Entities.Entity.AppUser
+                        _appUserService.Add(new Entities.Entity.AppUser
                         {
                             UserName = txtUserName.Text,
                             Password = txtPassword.Text,
@@ -160,7 +163,7 @@ namespace RA.WinFormUI
 
         private void bttnUpdate_Click(object sender, EventArgs e)
         {
-            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
+            var getUser = _appUserService.GetById((int)comboUserName.SelectedValue);
             if(getUser != null)
             {
                 if(!string.IsNullOrEmpty(txtPassword.Text))
@@ -174,7 +177,7 @@ namespace RA.WinFormUI
 
                 if(getUser.ID != (int)comboEmployeeLastName.SelectedValue)
                 {
-                    if(appUserManager.GetByEmployeeId((int)comboEmployeeLastName.SelectedValue) == false)
+                    if(_appUserService.GetByEmployeeId((int)comboEmployeeLastName.SelectedValue) == false)
                     {
                         getUser.ID = (int)comboEmployeeLastName.SelectedValue;
                     }
@@ -186,7 +189,7 @@ namespace RA.WinFormUI
 
                 getUser.IsActive = checkStatu.Checked;
                 getUser.UpdatedDate = DateTime.Now;
-                appUserManager.Update(getUser);
+                _appUserService.Update(getUser);
                 ComboUserNameList();
                 AppUserList();
             }
@@ -198,10 +201,10 @@ namespace RA.WinFormUI
 
         private void bttnDelete_Click(object sender, EventArgs e)
         {
-            var getUser = appUserManager.GetById((int)comboUserName.SelectedValue);
+            var getUser = _appUserService.GetById((int)comboUserName.SelectedValue);
             if(getUser != null)
             {
-                appUserManager.Delete(getUser);
+                _appUserService.Delete(getUser.ID);
                 ComboUserNameList();
                 AppUserList();
             }
