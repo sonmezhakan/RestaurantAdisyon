@@ -23,21 +23,21 @@ NTier Architecture ensures the development of a project by dividing its responsi
 3. Entity Layer
 4. Presentation Layer
 
-### Business Layer(BLL)
+### 1.Business Layer(BLL)
 
 The user's requests are implemented in conjunction with the Business Layer (BLL). This layer encapsulates the fundamental business logic of the application.
 
-### Data Layer(DAL)
+### 2.Data Layer(DAL)
 
 The Data Layer enables us to access the database and perform various operations related to it.
 
-### Entity Layer
+### 3.Entity Layer
 
 This layer facilitates the association of objects used within the application with tables in the database. The Entity Layer is generally supported by Object-Relational Mapping (ORM) tools.
 
 ORM serves as an interface handling the differences between objects and relational databases. It maps the data in the database to objects, managing the relationships between these objects.
 
-### Presentation Layer
+### 4.Presentation Layer
 
 This layer interacts with users and involves creating the visual interfaces of applications using front-end technologies.
 
@@ -45,6 +45,11 @@ In addition to the basic layers mentioned above, depending on your project, you 
 
 ## Technologies
 
-- Microsoft.EntityFrameworkCore.SqlServer
-- Microsoft.EntityFrameworkCore.Tools
-- Microsoft.Extensions.DependencyInjection
+- .Net
+- MsSql
+
+## Libraries
+
+- [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
+- [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)
+- [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/)
